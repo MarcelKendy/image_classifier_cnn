@@ -1,4 +1,41 @@
+Initializing program...
+Preparing Dataset:
+Initializing models:
+ResNet18...
+VGG16...
+Training models:
+Training ResNet18...
 Training model ResNet18:
-Epoch 1/2, Train Loss: 1.4421, Val Loss: 1.2026
-Epoch 2/2, Train Loss: 0.9115, Val Loss: 0.7547
+Epoch 1/2, Train Loss: 1.6322, Val Loss: 1.3202
+Epoch 2/2, Train Loss: 1.0693, Val Loss: 0.8742
+Time spent: 0 min 28 sec of 20 min allowed.
+Training VGG16...
 Training model VGG16:
+Epoch 1/2, Train Loss: 0.9409, Val Loss: 0.4332
+Epoch 2/2, Train Loss: 0.2999, Val Loss: 0.2811
+Time spent: 2 min 35 sec of 20 min allowed.
+Evaluating models:
+Evaluating ResNet18 on Test Data...
+Confusion Matrix:
+[[21  0  0  0  0  0]
+ [ 0  9  0  1  5  0]
+ [ 0  0  6  5  2  0]
+ [ 0  0  0  9  1  0]
+ [ 0  1  0  0 11  0]
+ [ 0  0  0  0  0 19]]
+Accuracy: 0.8333
+Precision: 0.8827
+Recall: 0.8333
+F1-Score: 0.8303
+Evaluating VGG16 on Test Data...
+Confusion Matrix:
+[[21  0  0  0  0  0]
+ [ 0 14  0  1  0  0]
+ [ 0  0 13  0  0  0]
+ [ 0  0  0  9  1  0]
+ [ 0  1  0  0 11  0]
+ [ 0  0  0  0  0 19]]
+Accuracy: 0.9667
+Precision: 0.9667
+Recall: 0.9667
+F1-Score: 0.9667

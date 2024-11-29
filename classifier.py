@@ -5,6 +5,8 @@
 # numpy: For numerical operations.
 # sklearn: For evaluation metrics and confusion matrix.
 # matplotlib: For creating visualization charts
+# sys: To write in a txt file
+# time: To monitor the time spent
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -13,8 +15,8 @@ from torchvision import datasets, transforms, models
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
-
+import sys 
+import time
 # Redirect stdout to both console and a file
 class Logger:
     def __init__(self, filename="results.txt"):
@@ -35,9 +37,9 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model_name, model, train_loader, val_loader, criterion, optimizer, device, epochs=2, patience=5):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=2, patience=5, timeout=20*60):
     """
-    Trains the model with early stopping and validation loss tracking.
+    Trains the model with early stopping, validation loss tracking, and optional timeout.
 
     Args:
         model: PyTorch model instance.
@@ -48,6 +50,7 @@ def train_model(model_name, model, train_loader, val_loader, criterion, optimize
         device: 'cpu' or 'cuda' (GPU).
         epochs: Maximum number of training epochs.
         patience: Early stopping patience.
+        timeout: Maximum time for training in seconds. If False, no timeout is applied.
 
     Returns:
         trained model, train losses, val losses
@@ -56,7 +59,8 @@ def train_model(model_name, model, train_loader, val_loader, criterion, optimize
     val_losses = []
     best_val_loss = float("inf")
     patience_counter = 0
-    print(f"Training model {model_name}:")
+
+    start_time = time.time()  # Start the timer
 
     for epoch in range(epochs):
         model.train()
@@ -85,7 +89,7 @@ def train_model(model_name, model, train_loader, val_loader, criterion, optimize
 
         val_loss /= len(val_loader)
         val_losses.append(val_loss)
-
+        print(f"Epoch {epoch + 1}/{epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             patience_counter = 0
@@ -93,13 +97,24 @@ def train_model(model_name, model, train_loader, val_loader, criterion, optimize
         else:
             patience_counter += 1
 
-        if patience_counter >= patience: # Early stopping to prevent overfitting
+        if patience_counter >= patience:  # Early stopping
             print(f"Early stopping at epoch {epoch + 1}")
             break
 
-        print(f"Epoch {epoch + 1}/{epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
-
+        elapsed_time = time.time() - start_time  # Time spent so far
+        if timeout and elapsed_time > timeout:  # Check timeout if enabled
+            print(f"Training stopped due to timeout at epoch {epoch + 1}.")
+            break
+        
+    # Load the best model before returning
     model.load_state_dict(torch.load("best_model.pth"))
+
+    # Total time spent
+    total_time = time.time() - start_time
+    minutes, seconds = divmod(total_time, 60)
+    timeout_minutes = timeout // 60 if timeout else "no limit"
+    print(f"Time spent: {int(minutes)} min {int(seconds)} sec of {timeout_minutes} min allowed.")
+
     return model, train_losses, val_losses
 
 # Function to plot the confusion matrix
@@ -180,7 +195,9 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
 
 # Main code
 def main():
+    print("Initializing program...")
     # Step 1: Dataset preparation
+    print("Preparing Dataset...")
     DATASET_PATH = "image_dataset"
     IMAGE_SIZE = (224, 224) # I'm reshaping the resolution
     BATCH_SIZE = 32
@@ -199,10 +216,12 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
     class_names = dataset.classes
 
-    # Step 2: Models initialization 
+    # Step 2: Models initialization
+    print("Initializing models...") 
     device = 'cuda' if torch.cuda.is_available() else 'cpu' # Checking which device to use
 
     # ResNet18 model
+    print("ResNet18...") 
     model_resnet = models.resnet18(pretrained=True)
     for param in model_resnet.parameters():
         param.requires_grad = False
@@ -210,31 +229,32 @@ def main():
     model_resnet = model_resnet.to(device)
 
     # VGG16 model
+    print("VGG16...")
     model_vgg = models.vgg16(pretrained=True)
     for param in model_vgg.parameters():
         param.requires_grad = False
     model_vgg.classifier[6] = nn.Linear(model_vgg.classifier[6].in_features, len(class_names))
     model_vgg = model_vgg.to(device)
 
-    # Step 3: Training ResNet18
+    # Step 3: Training models
+    print("Training models...")
+    print("Training ResNet18...")
     optimizer_resnet = optim.Adam(model_resnet.parameters(), lr=1e-3)
-    model_resnet, train_losses_resnet, val_losses_resnet = train_model("ResNet18", model_resnet, train_loader, val_loader,
+    model_resnet, train_losses_resnet, val_losses_resnet = train_model(model_resnet, train_loader, val_loader,
                                                                        nn.CrossEntropyLoss(), optimizer_resnet, device)
-
-    # Step 4: Training VGG16
+    print("Training VGG16...")
     optimizer_vgg = optim.Adam(model_vgg.parameters(), lr=1e-3)
-    model_vgg, train_losses_vgg, val_losses_vgg = train_model("VGG16", model_vgg, train_loader, val_loader,
+    model_vgg, train_losses_vgg, val_losses_vgg = train_model(model_vgg, train_loader, val_loader,
                                                               nn.CrossEntropyLoss(), optimizer_vgg, device)
 
-    # Step 5: Evaluate both models on test data
-    print("\nEvaluating ResNet18 on Test Data:")
+    # Step 4: Evaluate models
+    print("Evaluating models...")
+    print("Evaluating ResNet18 on Test Data...")
     metrics_resnet = evaluate_model(model_resnet, test_loader, device, class_names, "ResNet18")
-
-    print("\nEvaluating VGG16 on Test Data:")
+    print("Evaluating VGG16 on Test Data...")
     metrics_vgg = evaluate_model(model_vgg, test_loader, device, class_names, "VGG16")
 
     return metrics_resnet, metrics_vgg
-
 
 if __name__ == "__main__":
     metrics_resnet, metrics_vgg = main()
