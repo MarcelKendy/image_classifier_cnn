@@ -196,7 +196,7 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
 # Main code
 def main():
     print("Initializing program...")
-    # Step 1: Dataset preparation
+    # Step 1/4: Dataset preparation
     print("Preparing Dataset...")
     DATASET_PATH = "image_dataset"
     IMAGE_SIZE = (224, 224) # I'm reshaping the resolution
@@ -216,7 +216,7 @@ def main():
     test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
     class_names = dataset.classes
 
-    # Step 2: Models initialization
+    # Step 2/4: Models initialization
     print("Initializing models...") 
     device = 'cuda' if torch.cuda.is_available() else 'cpu' # Checking which device to use
 
@@ -236,7 +236,7 @@ def main():
     model_vgg.classifier[6] = nn.Linear(model_vgg.classifier[6].in_features, len(class_names))
     model_vgg = model_vgg.to(device)
 
-    # Step 3: Training models
+    # Step 3/4: Training models
     print("Training models...")
     print("Training ResNet18...")
     optimizer_resnet = optim.Adam(model_resnet.parameters(), lr=1e-3)
@@ -247,7 +247,7 @@ def main():
     model_vgg, train_losses_vgg, val_losses_vgg = train_model(model_vgg, train_loader, val_loader,
                                                               nn.CrossEntropyLoss(), optimizer_vgg, device)
 
-    # Step 4: Evaluate models
+    # Step 4/4: Evaluate models
     print("Evaluating models...")
     print("Evaluating ResNet18 on Test Data...")
     metrics_resnet = evaluate_model(model_resnet, test_loader, device, class_names, "ResNet18")
