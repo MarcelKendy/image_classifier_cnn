@@ -14,7 +14,7 @@ Livre para qualquer tipo de uso.
 2. **Instalação das Bibliotecas Necessárias**: Execute os comandos abaixo para instalar as bibliotecas usadas no projeto:
 
 ```bash
-pip install torch torchvision scikit-learn matplotlib
+pip install numpy torch torchvision scikit-learn matplotlib
 ```
 
 ## Estrutura do Projeto

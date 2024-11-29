@@ -4,6 +4,7 @@
 # torchvision: For dataset and image transformations.
 # numpy: For numerical operations.
 # sklearn: For evaluation metrics and confusion matrix.
+# matplotlib: For creating visualization charts
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -12,11 +13,29 @@ from torchvision import datasets, transforms, models
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
+
+# Redirect stdout to both console and a file
+class Logger:
+    def __init__(self, filename="results.txt"):
+        self.console = sys.stdout
+        self.file = open(filename, "w")
+
+    def write(self, message):
+        self.console.write(message)  # Print to console
+        self.file.write(message)    # Write to file
+        self.file.flush()           # Ensure real-time writing
+
+    def flush(self):
+        self.console.flush()
+        self.file.flush()
+
+sys.stdout = Logger("results.txt")
 
 # Functions
 
 # Training function
-def train_model(model_name, model, train_loader, val_loader, criterion, optimizer, device, epochs=15, patience=5):
+def train_model(model_name, model, train_loader, val_loader, criterion, optimizer, device, epochs=2, patience=5):
     """
     Trains the model with early stopping and validation loss tracking.
 
