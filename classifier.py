@@ -1,3 +1,9 @@
+# Imports
+
+# Torch: PyTorch library for deep learning operations.
+# torchvision: For dataset and image transformations.
+# numpy: For numerical operations.
+# sklearn: For evaluation metrics and confusion matrix.
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -7,36 +13,10 @@ from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, r
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Function to plot confusion matrix
-def plot_confusion_matrix(cm, class_names, title="Confusion Matrix"):
-    """
-    Plot a confusion matrix using matplotlib.
-    Args:
-        cm (np.array): Confusion matrix.
-        class_names (list): List of class names.
-        title (str): Title of the plot.
-    """
-    plt.figure(figsize=(8, 8))
-    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(class_names))
-    plt.xticks(tick_marks, class_names, rotation=45)
-    plt.yticks(tick_marks, class_names)
+# Functions
 
-    for i in range(len(class_names)):
-        for j in range(len(class_names)):
-            plt.text(j, i, format(cm[i, j], 'd'),
-                     horizontalalignment="center",
-                     color="white" if cm[i, j] > cm.max() / 2 else "black")
-
-    plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    plt.show()
-
-# Training function with early stopping
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=15, patience=5):
+# Training function
+def train_model(model_name, model, train_loader, val_loader, criterion, optimizer, device, epochs=15, patience=5):
     """
     Trains the model with early stopping and validation loss tracking.
 
@@ -57,6 +37,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
     val_losses = []
     best_val_loss = float("inf")
     patience_counter = 0
+    print(f"Training model {model_name}:")
 
     for epoch in range(epochs):
         model.train()
@@ -93,7 +74,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
         else:
             patience_counter += 1
 
-        if patience_counter >= patience:
+        if patience_counter >= patience: # Early stopping to prevent overfitting
             print(f"Early stopping at epoch {epoch + 1}")
             break
 
@@ -101,6 +82,33 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
 
     model.load_state_dict(torch.load("best_model.pth"))
     return model, train_losses, val_losses
+
+# Function to plot the confusion matrix
+def plot_confusion_matrix(cm, class_names, title="Confusion Matrix"):
+    """
+    Plots a confusion matrix using matplotlib.
+
+    Args:
+        cm (np.array): Confusion matrix.
+        class_names (list): List of class names.
+        title (str): Title of the plot.
+    """
+    plt.figure(figsize=(8, 8))
+    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(class_names))
+    plt.xticks(tick_marks, class_names, rotation=45)
+    plt.yticks(tick_marks, class_names)
+
+    for i in range(len(class_names)):
+        for j in range(len(class_names)):
+            plt.text(j, i, format(cm[i, j], 'd'), horizontalalignment="center", color="white" if cm[i, j] > cm.max() / 2 else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.show()
 
 # Function to evaluate model on test set and print metrics
 def evaluate_model(model, test_loader, device, class_names, model_name):
@@ -155,27 +163,25 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
 def main():
     # Step 1: Dataset preparation
     DATASET_PATH = "image_dataset"
-    IMAGE_SIZE = (224, 224)
+    IMAGE_SIZE = (224, 224) # I'm reshaping the resolution
     BATCH_SIZE = 32
     transform = transforms.Compose([
         transforms.Resize(IMAGE_SIZE),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) # Normalizing for better results
     ])
-
     dataset = datasets.ImageFolder(DATASET_PATH, transform=transform)
-    train_size = int(0.7 * len(dataset))
-    val_size = int(0.15 * len(dataset))
-    test_size = len(dataset) - train_size - val_size
+    train_size = int(0.7 * len(dataset)) # Training split will be 70%
+    val_size = int(0.15 * len(dataset)) # Validation split will be 15%
+    test_size = len(dataset) - train_size - val_size # Test split will be the remaining 15%
     train_dataset, val_dataset, test_dataset = random_split(dataset, [train_size, val_size, test_size])
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
-
     class_names = dataset.classes
 
-    # Step 2: Model initialization (two different models)
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    # Step 2: Models initialization 
+    device = 'cuda' if torch.cuda.is_available() else 'cpu' # Checking which device to use
 
     # ResNet18 model
     model_resnet = models.resnet18(pretrained=True)
@@ -193,12 +199,12 @@ def main():
 
     # Step 3: Training ResNet18
     optimizer_resnet = optim.Adam(model_resnet.parameters(), lr=1e-3)
-    model_resnet, train_losses_resnet, val_losses_resnet = train_model(model_resnet, train_loader, val_loader,
-                                                                      nn.CrossEntropyLoss(), optimizer_resnet, device)
+    model_resnet, train_losses_resnet, val_losses_resnet = train_model("ResNet18", model_resnet, train_loader, val_loader,
+                                                                       nn.CrossEntropyLoss(), optimizer_resnet, device)
 
     # Step 4: Training VGG16
     optimizer_vgg = optim.Adam(model_vgg.parameters(), lr=1e-3)
-    model_vgg, train_losses_vgg, val_losses_vgg = train_model(model_vgg, train_loader, val_loader,
+    model_vgg, train_losses_vgg, val_losses_vgg = train_model("VGG16", model_vgg, train_loader, val_loader,
                                                               nn.CrossEntropyLoss(), optimizer_vgg, device)
 
     # Step 5: Evaluate both models on test data
