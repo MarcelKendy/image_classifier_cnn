@@ -37,7 +37,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=2, patience=5, timeout=20*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=20, patience=5, timeout=5*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -70,6 +70,11 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
             inputs, labels = inputs.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(inputs)
+
+            # Handle models that return more than just the raw logits (e.g., Inception)
+            if isinstance(outputs, tuple):
+                outputs = outputs[0]  # Get the logits (e.g., InceptionOutputs.logits)
+
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -84,12 +89,18 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
             for inputs, labels in val_loader:
                 inputs, labels = inputs.to(device), labels.to(device)
                 outputs = model(inputs)
+
+                # Handle models that return more than just the raw logits (e.g., Inception)
+                if isinstance(outputs, tuple):
+                    outputs = outputs[0]  # Get the logits (e.g., InceptionOutputs.logits)
+
                 loss = criterion(outputs, labels)
                 val_loss += loss.item()
 
         val_loss /= len(val_loader)
         val_losses.append(val_loss)
         print(f"Epoch {epoch + 1}/{epochs}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
+        
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             patience_counter = 0
@@ -105,7 +116,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
         if timeout and elapsed_time > timeout:  # Check timeout if enabled
             print(f"Training stopped due to timeout at epoch {epoch + 1}.")
             break
-        
+
     # Load the best model before returning
     model.load_state_dict(torch.load("best_model.pth"))
 
@@ -199,17 +210,17 @@ def main():
     # Step 1/4: Dataset preparation
     print("Preparing Dataset...")
     DATASET_PATH = "image_dataset"
-    IMAGE_SIZE = (224, 224) # I'm reshaping the resolution
+    IMAGE_SIZE = (299, 299)  # I'm reshaping the resolution
     BATCH_SIZE = 32
     transform = transforms.Compose([
         transforms.Resize(IMAGE_SIZE),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) # Normalizing for better results
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # Normalizing for better results
     ])
     dataset = datasets.ImageFolder(DATASET_PATH, transform=transform)
-    train_size = int(0.7 * len(dataset)) # Training split will be 70%
-    val_size = int(0.15 * len(dataset)) # Validation split will be 15%
-    test_size = len(dataset) - train_size - val_size # Test split will be the remaining 15%
+    train_size = int(0.7 * len(dataset))  # Training split will be 70%
+    val_size = int(0.15 * len(dataset))  # Validation split will be 15%
+    test_size = len(dataset) - train_size - val_size  # Test split will be the remaining 15%
     train_dataset, val_dataset, test_dataset = random_split(dataset, [train_size, val_size, test_size])
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
@@ -217,11 +228,11 @@ def main():
     class_names = dataset.classes
 
     # Step 2/4: Models initialization
-    print("Initializing models...") 
-    device = 'cuda' if torch.cuda.is_available() else 'cpu' # Checking which device to use
+    print("Initializing models...")
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'  # Checking which device to use
 
     # ResNet18 model
-    print("ResNet18...") 
+    print("ResNet18...")
     model_resnet = models.resnet18(pretrained=True)
     for param in model_resnet.parameters():
         param.requires_grad = False
@@ -236,25 +247,77 @@ def main():
     model_vgg.classifier[6] = nn.Linear(model_vgg.classifier[6].in_features, len(class_names))
     model_vgg = model_vgg.to(device)
 
+    # Inception_v3 model
+    print("Inception_v3...")
+    model_inception = models.inception_v3(pretrained=True, aux_logits=True)
+    for param in model_inception.parameters():
+        param.requires_grad = False
+    model_inception.AuxLogits.fc = nn.Linear(model_inception.AuxLogits.fc.in_features, len(class_names))
+    model_inception.fc = nn.Linear(model_inception.fc.in_features, len(class_names))
+    model_inception = model_inception.to(device)
+
+
+    # DenseNet model
+    print("DenseNet...")
+    model_densenet = models.densenet121(pretrained=True)
+    for param in model_densenet.parameters():
+        param.requires_grad = False
+    model_densenet.classifier = nn.Linear(model_densenet.classifier.in_features, len(class_names))
+    model_densenet = model_densenet.to(device)
+
+    # MobileNetV2 model
+    print("MobileNetV2...")
+    model_mobilenet = models.mobilenet_v2(pretrained=True)
+    for param in model_mobilenet.parameters():
+        param.requires_grad = False
+    model_mobilenet.classifier[1] = nn.Linear(model_mobilenet.classifier[1].in_features, len(class_names))
+    model_mobilenet = model_mobilenet.to(device)
+
     # Step 3/4: Training models
     print("Training models...")
     print("Training ResNet18...")
     optimizer_resnet = optim.Adam(model_resnet.parameters(), lr=1e-3)
     model_resnet, train_losses_resnet, val_losses_resnet = train_model(model_resnet, train_loader, val_loader,
                                                                        nn.CrossEntropyLoss(), optimizer_resnet, device)
+
     print("Training VGG16...")
     optimizer_vgg = optim.Adam(model_vgg.parameters(), lr=1e-3)
     model_vgg, train_losses_vgg, val_losses_vgg = train_model(model_vgg, train_loader, val_loader,
                                                               nn.CrossEntropyLoss(), optimizer_vgg, device)
 
+    print("Training InceptionV3...")
+    optimizer_inception = optim.Adam(model_inception.parameters(), lr=1e-3)
+    model_inception, train_losses_inception, val_losses_inception = train_model(model_inception, train_loader, val_loader,
+                                                                                nn.CrossEntropyLoss(), optimizer_inception, device)
+
+    print("Training DenseNet...")
+    optimizer_densenet = optim.Adam(model_densenet.parameters(), lr=1e-3)
+    model_densenet, train_losses_densenet, val_losses_densenet = train_model(model_densenet, train_loader, val_loader,
+                                                                             nn.CrossEntropyLoss(), optimizer_densenet, device)
+
+    print("Training MobileNetV2...")
+    optimizer_mobilenet = optim.Adam(model_mobilenet.parameters(), lr=1e-3)
+    model_mobilenet, train_losses_mobilenet, val_losses_mobilenet = train_model(model_mobilenet, train_loader, val_loader,
+                                                                                nn.CrossEntropyLoss(), optimizer_mobilenet, device)
+
     # Step 4/4: Evaluate models
     print("Evaluating models...")
     print("Evaluating ResNet18 on Test Data...")
     metrics_resnet = evaluate_model(model_resnet, test_loader, device, class_names, "ResNet18")
+
     print("Evaluating VGG16 on Test Data...")
     metrics_vgg = evaluate_model(model_vgg, test_loader, device, class_names, "VGG16")
 
-    return metrics_resnet, metrics_vgg
+    print("Evaluating InceptionV3 on Test Data...")
+    metrics_inception = evaluate_model(model_inception, test_loader, device, class_names, "InceptionV3")
+
+    print("Evaluating DenseNet on Test Data...")
+    metrics_densenet = evaluate_model(model_densenet, test_loader, device, class_names, "DenseNet")
+
+    print("Evaluating MobileNetV2 on Test Data...")
+    metrics_mobilenet = evaluate_model(model_mobilenet, test_loader, device, class_names, "MobileNetV2")
+
+    return metrics_resnet, metrics_vgg, metrics_inception, metrics_densenet, metrics_mobilenet
 
 if __name__ == "__main__":
-    metrics_resnet, metrics_vgg = main()
+    metrics_resnet, metrics_vgg, metrics_inception, metrics_densenet, metrics_mobilenet = main()
