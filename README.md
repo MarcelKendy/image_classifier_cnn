@@ -28,3 +28,8 @@ Livre para qualquer tipo de uso.
 
 ```bash
 pip install numpy torch torchvision scikit-learn matplotlib
+
+3. **Executando o projeto**: Dentro do diretório do projeto, execute o comando:
+
+```bash
+python classifier.py
