@@ -12,12 +12,14 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms, models
+from torchvision.models import ResNet18_Weights, VGG16_Weights, Inception_V3_Weights, DenseNet121_Weights, MobileNet_V2_Weights
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import numpy as np
 import matplotlib.pyplot as plt
 import sys 
 import time
-# Redirect stdout to both console and a file
+
+# AUX Class Logger to redirect stdout to both console and a file
 class Logger:
     def __init__(self, filename="results.txt"):
         self.console = sys.stdout
@@ -37,7 +39,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=20, patience=5, timeout=5*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=20, patience=5, timeout=1*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -71,9 +73,9 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
             optimizer.zero_grad()
             outputs = model(inputs)
 
-            # Handle models that return more than just the raw logits (e.g., Inception)
+            # Handle models that return tuples (Inception)
             if isinstance(outputs, tuple):
-                outputs = outputs[0]  # Get the logits (e.g., InceptionOutputs.logits)
+                outputs = outputs[0]  
 
             loss = criterion(outputs, labels)
             loss.backward()
@@ -90,9 +92,9 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
                 inputs, labels = inputs.to(device), labels.to(device)
                 outputs = model(inputs)
 
-                # Handle models that return more than just the raw logits (e.g., Inception)
+                # Handle models that return tuples (Inception)
                 if isinstance(outputs, tuple):
-                    outputs = outputs[0]  # Get the logits (e.g., InceptionOutputs.logits)
+                    outputs = outputs[0] 
 
                 loss = criterion(outputs, labels)
                 val_loss += loss.item()
@@ -118,7 +120,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
             break
 
     # Load the best model before returning
-    model.load_state_dict(torch.load("best_model.pth"))
+    model.load_state_dict(torch.load("best_model.pth", weights_only=True))
 
     # Total time spent
     total_time = time.time() - start_time
@@ -165,6 +167,7 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
         test_loader: DataLoader for test data.
         device: 'cpu' or 'cuda' (GPU).
         class_names: List of class names.
+        model_name: The name of the model 
 
     Returns:
         metrics: Dictionary containing metrics (accuracy, precision, recall, f1, confusion matrix).
@@ -210,21 +213,47 @@ def main():
     # Step 1/4: Dataset preparation
     print("Preparing Dataset...")
     DATASET_PATH = "image_dataset"
-    IMAGE_SIZE = (299, 299)  # I'm reshaping the resolution
+    IMAGE_SIZE = (299, 299)  # Reshaping resolution
     BATCH_SIZE = 32
-    transform = transforms.Compose([
+    HOLD_OUT_SPLIT = 0.2  # 20% of the data will be reserved for the final test
+
+    # Pre-Processing
+    train_transform = transforms.Compose([
+        transforms.RandomResizedCrop(IMAGE_SIZE),
+        transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+        transforms.RandomRotation(15),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  
+    ])
+    test_val_transform = transforms.Compose([
         transforms.Resize(IMAGE_SIZE),
         transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # Normalizing for better results
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  
     ])
-    dataset = datasets.ImageFolder(DATASET_PATH, transform=transform)
-    train_size = int(0.7 * len(dataset))  # Training split will be 70%
-    val_size = int(0.15 * len(dataset))  # Validation split will be 15%
-    test_size = len(dataset) - train_size - val_size  # Test split will be the remaining 15%
-    train_dataset, val_dataset, test_dataset = random_split(dataset, [train_size, val_size, test_size])
+
+    # Loading dataset and separating between training and testing (Hold-Out)
+    dataset = datasets.ImageFolder(DATASET_PATH, transform=None)
+    hold_out_size = int(HOLD_OUT_SPLIT * len(dataset))
+    train_val_size = len(dataset) - hold_out_size
+
+    train_val_dataset, test_dataset = random_split(dataset, [train_val_size, hold_out_size])
+
+    # Dividing training/testing from the remaining data
+    train_size = int(0.7 * len(train_val_dataset))  # 70% for training
+    val_size = len(train_val_dataset) - train_size  # The rest for validation
+    train_dataset, val_dataset = random_split(train_val_dataset, [train_size, val_size])
+
+    # Aplying transformations
+    train_dataset.dataset.transform = train_transform
+    val_dataset.dataset.transform = test_val_transform
+    test_dataset.dataset.transform = test_val_transform
+
+    # Creating DataLoaders
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
+
     class_names = dataset.classes
 
     # Step 2/4: Models initialization
@@ -233,7 +262,7 @@ def main():
 
     # ResNet18 model
     print("ResNet18...")
-    model_resnet = models.resnet18(pretrained=True)
+    model_resnet = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
     for param in model_resnet.parameters():
         param.requires_grad = False
     model_resnet.fc = nn.Linear(model_resnet.fc.in_features, len(class_names))
@@ -241,7 +270,7 @@ def main():
 
     # VGG16 model
     print("VGG16...")
-    model_vgg = models.vgg16(pretrained=True)
+    model_vgg = models.vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
     for param in model_vgg.parameters():
         param.requires_grad = False
     model_vgg.classifier[6] = nn.Linear(model_vgg.classifier[6].in_features, len(class_names))
@@ -249,7 +278,7 @@ def main():
 
     # Inception_v3 model
     print("Inception_v3...")
-    model_inception = models.inception_v3(pretrained=True, aux_logits=True)
+    model_inception = models.inception_v3(weights=Inception_V3_Weights.IMAGENET1K_V1, aux_logits=True)
     for param in model_inception.parameters():
         param.requires_grad = False
     model_inception.AuxLogits.fc = nn.Linear(model_inception.AuxLogits.fc.in_features, len(class_names))
@@ -259,7 +288,7 @@ def main():
 
     # DenseNet model
     print("DenseNet...")
-    model_densenet = models.densenet121(pretrained=True)
+    model_densenet = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
     for param in model_densenet.parameters():
         param.requires_grad = False
     model_densenet.classifier = nn.Linear(model_densenet.classifier.in_features, len(class_names))
@@ -267,7 +296,7 @@ def main():
 
     # MobileNetV2 model
     print("MobileNetV2...")
-    model_mobilenet = models.mobilenet_v2(pretrained=True)
+    model_mobilenet = models.mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
     for param in model_mobilenet.parameters():
         param.requires_grad = False
     model_mobilenet.classifier[1] = nn.Linear(model_mobilenet.classifier[1].in_features, len(class_names))

@@ -8,111 +8,87 @@ DenseNet...
 MobileNetV2...
 Training models...
 Training ResNet18...
-Epoch 1/20, Train Loss: 1.6432, Val Loss: 1.3620
-Epoch 2/20, Train Loss: 1.1329, Val Loss: 1.0090
-Epoch 3/20, Train Loss: 0.9471, Val Loss: 0.7876
-Epoch 4/20, Train Loss: 0.7130, Val Loss: 0.5818
-Epoch 5/20, Train Loss: 0.6090, Val Loss: 0.4487
-Epoch 6/20, Train Loss: 0.5455, Val Loss: 0.4102
-Epoch 7/20, Train Loss: 0.5077, Val Loss: 0.3533
-Epoch 8/20, Train Loss: 0.4636, Val Loss: 0.3167
-Epoch 9/20, Train Loss: 0.4074, Val Loss: 0.2901
-Epoch 10/20, Train Loss: 0.3804, Val Loss: 0.2611
-Epoch 11/20, Train Loss: 0.3307, Val Loss: 0.2477
-Epoch 12/20, Train Loss: 0.3319, Val Loss: 0.2365
-Training stopped due to timeout at epoch 12.
-Time spent: 5 min 1 sec of 5 min allowed.
-Training VGG16...
-Epoch 1/20, Train Loss: 0.9990, Val Loss: 0.5104
-Epoch 2/20, Train Loss: 0.3707, Val Loss: 0.2848
-Epoch 3/20, Train Loss: 0.2658, Val Loss: 0.2282
+Epoch 1/20, Train Loss: 1.6817, Val Loss: 1.6146
+Epoch 2/20, Train Loss: 1.2186, Val Loss: 1.1974
+Epoch 3/20, Train Loss: 0.9066, Val Loss: 0.9575
 Training stopped due to timeout at epoch 3.
-Time spent: 6 min 22 sec of 5 min allowed.
+Time spent: 1 min 10 sec of 1 min allowed.
+Training VGG16...
+Epoch 1/20, Train Loss: 1.1444, Val Loss: 0.6522
+Training stopped due to timeout at epoch 1.
+Time spent: 2 min 6 sec of 1 min allowed.
 Training InceptionV3...
-Epoch 1/20, Train Loss: 1.4668, Val Loss: 1.1613
-Epoch 2/20, Train Loss: 0.9050, Val Loss: 0.9380
-Epoch 3/20, Train Loss: 0.6920, Val Loss: 0.8234
-Epoch 4/20, Train Loss: 0.4950, Val Loss: 0.4376
-Epoch 5/20, Train Loss: 0.4257, Val Loss: 0.3088
-Epoch 6/20, Train Loss: 0.3202, Val Loss: 0.2694
-Training stopped due to timeout at epoch 6.
-Time spent: 5 min 1 sec of 5 min allowed.
+Epoch 1/20, Train Loss: 1.5999, Val Loss: 1.3809
+Epoch 2/20, Train Loss: 1.0372, Val Loss: 1.1218
+Training stopped due to timeout at epoch 2.
+Time spent: 1 min 31 sec of 1 min allowed.
 Training DenseNet...
-Epoch 1/20, Train Loss: 1.6017, Val Loss: 1.2593
-Epoch 2/20, Train Loss: 1.0485, Val Loss: 0.7911
-Epoch 3/20, Train Loss: 0.7094, Val Loss: 0.5488
-Epoch 4/20, Train Loss: 0.5750, Val Loss: 0.4310
-Training stopped due to timeout at epoch 4.
-Time spent: 5 min 36 sec of 5 min allowed.
+Epoch 1/20, Train Loss: 1.6352, Val Loss: 1.4977
+Training stopped due to timeout at epoch 1.
+Time spent: 1 min 19 sec of 1 min allowed.
 Training MobileNetV2...
-Epoch 1/20, Train Loss: 1.4693, Val Loss: 1.2032
-Epoch 2/20, Train Loss: 0.8826, Val Loss: 0.8435
-Epoch 3/20, Train Loss: 0.6598, Val Loss: 0.5682
-Epoch 4/20, Train Loss: 0.5065, Val Loss: 0.4722
-Epoch 5/20, Train Loss: 0.5126, Val Loss: 0.3992
-Epoch 6/20, Train Loss: 0.4379, Val Loss: 0.3271
-Epoch 7/20, Train Loss: 0.3308, Val Loss: 0.3052
-Epoch 8/20, Train Loss: 0.2785, Val Loss: 0.2746
-Training stopped due to timeout at epoch 8.
-Time spent: 5 min 3 sec of 5 min allowed.
+Epoch 1/20, Train Loss: 1.6631, Val Loss: 1.5648
+Epoch 2/20, Train Loss: 1.0851, Val Loss: 1.1377
+Training stopped due to timeout at epoch 2.
+Time spent: 1 min 13 sec of 1 min allowed.
 Evaluating models...
 Evaluating ResNet18 on Test Data...
 Confusion Matrix:
-[[11  0  0  0  0  0]
- [ 0 12  0  1  0  1]
- [ 0  0 17  0  0  0]
- [ 0  0  0 13  0  0]
- [ 0  1  0  1 15  0]
- [ 0  0  0  0  0 18]]
-Accuracy: 0.9556
-Precision: 0.9582
-Recall: 0.9556
-F1-Score: 0.9552
+[[19  0  0  0  0  0]
+ [ 0  9  0  7  4  0]
+ [ 0  0 21  0  0  0]
+ [ 0  0  0 19  0  0]
+ [ 2  0  8  2 14  0]
+ [ 0  0  0  2  0 13]]
+Accuracy: 0.7917
+Precision: 0.8304
+Recall: 0.7917
+F1-Score: 0.7776
 Evaluating VGG16 on Test Data...
 Confusion Matrix:
-[[11  0  0  0  0  0]
- [ 0 11  0  3  0  0]
- [ 0  0 17  0  0  0]
- [ 0  0  0 13  0  0]
- [ 0  0  1  2 14  0]
- [ 0  0  0  0  0 18]]
-Accuracy: 0.9333
-Precision: 0.9494
-Recall: 0.9333
-F1-Score: 0.9344
+[[19  0  0  0  0  0]
+ [ 0 15  0  5  0  0]
+ [ 0  0 21  0  0  0]
+ [ 0  0  0 19  0  0]
+ [ 0  5  1 10 10  0]
+ [ 0  0  0  1  0 14]]
+Accuracy: 0.8167
+Precision: 0.8780
+Recall: 0.8167
+F1-Score: 0.8067
 Evaluating InceptionV3 on Test Data...
 Confusion Matrix:
-[[10  0  0  1  0  0]
- [ 0 13  0  0  1  0]
- [ 0  0 17  0  0  0]
- [ 0  0  0 13  0  0]
- [ 0  0  0  2 15  0]
- [ 0  0  0  0  0 18]]
-Accuracy: 0.9556
-Precision: 0.9611
-Recall: 0.9556
-F1-Score: 0.9563
+[[19  0  0  0  0  0]
+ [ 0  8  1 11  0  0]
+ [ 0  0 15  6  0  0]
+ [ 0  0  0 19  0  0]
+ [ 0  0  5 12  9  0]
+ [ 0  0  1  2  0 12]]
+Accuracy: 0.6833
+Precision: 0.8462
+Recall: 0.6833
+F1-Score: 0.6854
 Evaluating DenseNet on Test Data...
 Confusion Matrix:
-[[11  0  0  0  0  0]
- [ 0 13  0  0  1  0]
- [ 0  0 17  0  0  0]
- [ 0  0  0 12  1  0]
- [ 0  0  0  0 17  0]
- [ 0  0  0  0  0 18]]
-Accuracy: 0.9778
-Precision: 0.9801
-Recall: 0.9778
-F1-Score: 0.9780
+[[14  0  4  0  0  1]
+ [ 0 10  4  5  0  1]
+ [ 0  1 16  3  0  1]
+ [ 0  0  1 17  0  1]
+ [ 1  0 11  3  2  9]
+ [ 0  0  0  1  0 14]]
+Accuracy: 0.6083
+Precision: 0.7514
+Recall: 0.6083
+F1-Score: 0.5626
 Evaluating MobileNetV2 on Test Data...
 Confusion Matrix:
-[[11  0  0  0  0  0]
- [ 0 10  0  3  1  0]
- [ 0  0 17  0  0  0]
- [ 0  0  0 13  0  0]
- [ 0  0  0  1 16  0]
- [ 0  0  0  0  0 18]]
-Accuracy: 0.9444
-Precision: 0.9549
-Recall: 0.9444
-F1-Score: 0.9437
+[[19  0  0  0  0  0]
+ [ 0  0  0 20  0  0]
+ [ 0  0 20  1  0  0]
+ [ 0  0  0 19  0  0]
+ [ 0  0  0 24  1  1]
+ [ 0  0  0  0  0 15]]
+Accuracy: 0.6167
+Precision: 0.7142
+Recall: 0.6167
+F1-Score: 0.5386
