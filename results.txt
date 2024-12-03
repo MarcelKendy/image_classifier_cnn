@@ -1,94 +1,87 @@
 Initializing program...
 Preparing Dataset...
 Initializing models...
-ResNet18...
-VGG16...
-Inception_v3...
-DenseNet...
-MobileNetV2...
+Initializing ResNet18...
+Initializing VGG16...
+Initializing Inception_v3...
+Initializing DenseNet...
+Initializing MobileNetV2...
 Training models...
 Training ResNet18...
-Epoch 1/20, Train Loss: 1.7596, Val Loss: 1.5737
-Epoch 2/20, Train Loss: 1.2801, Val Loss: 1.2450
-Epoch 3/20, Train Loss: 0.9608, Val Loss: 0.9880
-Training stopped due to timeout at epoch 3.
-Time spent: 1 min 19 sec of 1 min allowed.
+Epoch 1/1, Train Loss: 1.6998, Val Loss: 1.5581
+Time spent: 0 min 21 sec of 1 min allowed.
 Training VGG16...
-Epoch 1/20, Train Loss: 1.0969, Val Loss: 0.6223
+Epoch 1/1, Train Loss: 1.0674, Val Loss: 0.5651
 Training stopped due to timeout at epoch 1.
-Time spent: 2 min 10 sec of 1 min allowed.
+Time spent: 1 min 48 sec of 1 min allowed.
 Training InceptionV3...
-Epoch 1/20, Train Loss: 1.5180, Val Loss: 1.3979
-Epoch 2/20, Train Loss: 0.9589, Val Loss: 1.0461
-Training stopped due to timeout at epoch 2.
-Time spent: 1 min 25 sec of 1 min allowed.
+Epoch 1/1, Train Loss: 1.5402, Val Loss: 1.4476
+Time spent: 0 min 47 sec of 1 min allowed.
 Training DenseNet...
-Epoch 1/20, Train Loss: 1.5345, Val Loss: 1.3231
+Epoch 1/1, Train Loss: 1.6349, Val Loss: 1.3994
 Training stopped due to timeout at epoch 1.
-Time spent: 1 min 16 sec of 1 min allowed.
+Time spent: 1 min 23 sec of 1 min allowed.
 Training MobileNetV2...
-Epoch 1/20, Train Loss: 1.5375, Val Loss: 1.3495
-Epoch 2/20, Train Loss: 1.0087, Val Loss: 0.9425
-Training stopped due to timeout at epoch 2.
-Time spent: 1 min 21 sec of 1 min allowed.
+Epoch 1/1, Train Loss: 1.5627, Val Loss: 1.3789
+Time spent: 0 min 35 sec of 1 min allowed.
 Evaluating models...
 Evaluating ResNet18 on Test Data...
 Confusion Matrix:
-[[20  0  0  0  1  0]
- [ 0  7  0  1  9  0]
- [ 0  0 15  0  0  0]
- [ 1  1  0 15  2  2]
- [ 0  0  3  2 19  0]
- [ 0  0  0  0  0 22]]
-Accuracy: 0.8167
-Precision: 0.8313
-Recall: 0.8167
-F1-Score: 0.8078
+[[16  0  0  2  0  0]
+ [ 0  0  0 24  0  0]
+ [ 0  0  4 18  0  0]
+ [ 0  0  0 14  0  0]
+ [ 2  0  1 19  0  0]
+ [ 0  1  0  9  0 10]]
+Accuracy: 0.3667
+Precision: 0.4657
+Recall: 0.3667
+F1-Score: 0.3314
 Evaluating VGG16 on Test Data...
 Confusion Matrix:
-[[21  0  0  0  0  0]
- [ 0 16  1  0  0  0]
- [ 0  0 15  0  0  0]
- [ 0  7  0 14  0  0]
- [ 0  1  2  1 19  1]
- [ 0  0  0  0  0 22]]
-Accuracy: 0.8917
-Precision: 0.9123
-Recall: 0.8917
-F1-Score: 0.8913
+[[18  0  0  0  0  0]
+ [ 0 17  2  3  2  0]
+ [ 0  0 22  0  0  0]
+ [ 0  2  0 10  2  0]
+ [ 0  2  1  2 17  0]
+ [ 0  0  0  0  0 20]]
+Accuracy: 0.8667
+Precision: 0.8661
+Recall: 0.8667
+F1-Score: 0.8648
 Evaluating InceptionV3 on Test Data...
 Confusion Matrix:
-[[21  0  0  0  0  0]
- [ 0  4  1  2  9  1]
- [ 0  0 15  0  0  0]
- [ 0  0  0 17  4  0]
- [ 0  0  0  3 21  0]
- [ 0  0  0  0  0 22]]
-Accuracy: 0.8333
-Precision: 0.8680
-Recall: 0.8333
-F1-Score: 0.8124
+[[ 8  0  1  9  0  0]
+ [ 0  0  1 20  3  0]
+ [ 0  0 12 10  0  0]
+ [ 0  0  2 11  1  0]
+ [ 0  0  1 11 10  0]
+ [ 0  0  2  1  0 17]]
+Accuracy: 0.4833
+Precision: 0.5841
+Recall: 0.4833
+F1-Score: 0.4884
 Evaluating DenseNet on Test Data...
 Confusion Matrix:
-[[21  0  0  0  0  0]
- [ 0 17  0  0  0  0]
- [ 0  1  9  0  0  5]
- [ 0  9  0  6  0  6]
- [ 0 16  1  0  0  7]
- [ 0  0  0  0  0 22]]
+[[18  0  0  0  0  0]
+ [ 5 14  0  1  0  4]
+ [ 1  1 14  4  0  2]
+ [ 1  3  0 10  0  0]
+ [ 9  1  1  4  0  7]
+ [ 0  0  0  1  0 19]]
 Accuracy: 0.6250
-Precision: 0.6193
+Precision: 0.5552
 Recall: 0.6250
-F1-Score: 0.5532
+F1-Score: 0.5632
 Evaluating MobileNetV2 on Test Data...
 Confusion Matrix:
-[[21  0  0  0  0  0]
- [ 3  2  0  4  7  1]
- [ 0  0 14  1  0  0]
- [ 2  0  0 16  2  1]
- [ 6  0  0  6 12  0]
- [ 0  0  0  1  0 21]]
-Accuracy: 0.7167
-Precision: 0.7632
-Recall: 0.7167
-F1-Score: 0.6813
+[[18  0  0  0  0  0]
+ [ 0  0  1 22  1  0]
+ [ 0  0 21  1  0  0]
+ [ 0  0  0 14  0  0]
+ [ 0  0  7 13  2  0]
+ [ 0  0  0  1  0 19]]
+Accuracy: 0.6167
+Precision: 0.6037
+Recall: 0.6167
+F1-Score: 0.5430

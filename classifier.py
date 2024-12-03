@@ -5,6 +5,7 @@
 # numpy: For numerical operations.
 # sklearn: For evaluation metrics and confusion matrix.
 # matplotlib: For creating visualization charts
+# seaborn: Data visualization to create the confusion matrix.
 # sys: To write in a txt file
 # time: To monitor the time spent
 import torch
@@ -16,6 +17,7 @@ from torchvision.models import ResNet18_Weights, VGG16_Weights, Inception_V3_Wei
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 import sys 
 import time
 
@@ -39,7 +41,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=20, patience=5, timeout=1*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=1, patience=5, timeout=1*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -131,31 +133,27 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
     return model, train_losses, val_losses
 
 # Function to plot the confusion matrix
-def plot_confusion_matrix(cm, class_names, title="Confusion Matrix"):
+def plot_confusion_matrix(cm, class_names, title='Confusion Matrix', save_path=None):
     """
-    Plots a confusion matrix using matplotlib.
+    Plot and save the confusion matrix.
 
     Args:
-        cm (np.array): Confusion matrix.
-        class_names (list): List of class names.
-        title (str): Title of the plot.
+        cm: Confusion matrix (array-like).
+        class_names: List of class names.
+        title: Title of the plot.
+        save_path: Path to save the plot image. If None, the plot will be shown on the screen.
     """
     plt.figure(figsize=(8, 8))
-    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
     plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(class_names))
-    plt.xticks(tick_marks, class_names, rotation=45)
-    plt.yticks(tick_marks, class_names)
+    plt.xlabel('Predicted Labels')
+    plt.ylabel('True Labels')
 
-    for i in range(len(class_names)):
-        for j in range(len(class_names)):
-            plt.text(j, i, format(cm[i, j], 'd'), horizontalalignment="center", color="white" if cm[i, j] > cm.max() / 2 else "black")
-
-    plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
-    plt.show()
+    if save_path:
+        plt.savefig(save_path)
+        plt.close()  # Close the plot to avoid displaying it
+    else:
+        plt.show()
 
 # Function to evaluate model on test set and print metrics
 def evaluate_model(model, test_loader, device, class_names, model_name):
@@ -197,7 +195,8 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
     print(f"Recall: {recall:.4f}")
     print(f"F1-Score: {f1:.4f}")
 
-    plot_confusion_matrix(cm, class_names, title=f"Confusion Matrix - {model_name}")
+    # Save confusion matrix plot
+    plot_confusion_matrix(cm, class_names, title=f"Confusion Matrix - {model_name}", save_path=f"confusion_matrices/{model_name}_confusion_matrix.png")
 
     return {
         'confusion_matrix': cm,
@@ -234,9 +233,9 @@ def main():
 
     # Loading dataset and separating between training and testing (Hold-Out)
     dataset = datasets.ImageFolder(DATASET_PATH, transform=None)
+    class_names = dataset.classes
     hold_out_size = int(HOLD_OUT_SPLIT * len(dataset))
     train_val_size = len(dataset) - hold_out_size
-
     train_val_dataset, test_dataset = random_split(dataset, [train_val_size, hold_out_size])
 
     # Dividing training/testing from the remaining data
@@ -252,9 +251,7 @@ def main():
     # Creating DataLoaders
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)
-
-    class_names = dataset.classes
+    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)    
 
     # Step 2/4: Models initialization
     print("Initializing models...")
@@ -329,7 +326,8 @@ def main():
                                                                                 nn.CrossEntropyLoss(), optimizer_mobilenet, device)
 
     # Step 4/4: Evaluate models
-    print("Evaluating models...")
+    print("Evaluating models...") 
+
     # List of tuples with models and their names
     models_list = [
         (model_resnet, "ResNet18"),
@@ -338,8 +336,6 @@ def main():
         (model_densenet, "DenseNet"),
         (model_mobilenet, "MobileNetV2")
     ]
-
-    # Dictionary to store metrics for each model
     metrics = {}
 
     # Evaluating each model
