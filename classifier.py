@@ -261,7 +261,7 @@ def main():
     device = 'cuda' if torch.cuda.is_available() else 'cpu'  # Checking which device to use
 
     # ResNet18 model
-    print("ResNet18...")
+    print("Initializing ResNet18...")
     model_resnet = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
     for param in model_resnet.parameters():
         param.requires_grad = False
@@ -269,7 +269,7 @@ def main():
     model_resnet = model_resnet.to(device)
 
     # VGG16 model
-    print("VGG16...")
+    print("Initializing VGG16...")
     model_vgg = models.vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
     for param in model_vgg.parameters():
         param.requires_grad = False
@@ -277,7 +277,7 @@ def main():
     model_vgg = model_vgg.to(device)
 
     # Inception_v3 model
-    print("Inception_v3...")
+    print("Initializing Inception_v3...")
     model_inception = models.inception_v3(weights=Inception_V3_Weights.IMAGENET1K_V1, aux_logits=True)
     for param in model_inception.parameters():
         param.requires_grad = False
@@ -285,9 +285,8 @@ def main():
     model_inception.fc = nn.Linear(model_inception.fc.in_features, len(class_names))
     model_inception = model_inception.to(device)
 
-
     # DenseNet model
-    print("DenseNet...")
+    print("Initializing DenseNet...")
     model_densenet = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
     for param in model_densenet.parameters():
         param.requires_grad = False
@@ -295,7 +294,7 @@ def main():
     model_densenet = model_densenet.to(device)
 
     # MobileNetV2 model
-    print("MobileNetV2...")
+    print("Initializing MobileNetV2...")
     model_mobilenet = models.mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
     for param in model_mobilenet.parameters():
         param.requires_grad = False
@@ -331,22 +330,24 @@ def main():
 
     # Step 4/4: Evaluate models
     print("Evaluating models...")
-    print("Evaluating ResNet18 on Test Data...")
-    metrics_resnet = evaluate_model(model_resnet, test_loader, device, class_names, "ResNet18")
+    # List of tuples with models and their names
+    models_list = [
+        (model_resnet, "ResNet18"),
+        (model_vgg, "VGG16"),
+        (model_inception, "InceptionV3"),
+        (model_densenet, "DenseNet"),
+        (model_mobilenet, "MobileNetV2")
+    ]
 
-    print("Evaluating VGG16 on Test Data...")
-    metrics_vgg = evaluate_model(model_vgg, test_loader, device, class_names, "VGG16")
+    # Dictionary to store metrics for each model
+    metrics = {}
 
-    print("Evaluating InceptionV3 on Test Data...")
-    metrics_inception = evaluate_model(model_inception, test_loader, device, class_names, "InceptionV3")
+    # Evaluating each model
+    for model, model_name in models_list:
+        print(f"Evaluating {model_name} on Test Data...")
+        metrics[model_name] = evaluate_model(model, test_loader, device, class_names, model_name)
 
-    print("Evaluating DenseNet on Test Data...")
-    metrics_densenet = evaluate_model(model_densenet, test_loader, device, class_names, "DenseNet")
-
-    print("Evaluating MobileNetV2 on Test Data...")
-    metrics_mobilenet = evaluate_model(model_mobilenet, test_loader, device, class_names, "MobileNetV2")
-
-    return metrics_resnet, metrics_vgg, metrics_inception, metrics_densenet, metrics_mobilenet
+    return metrics
 
 if __name__ == "__main__":
-    metrics_resnet, metrics_vgg, metrics_inception, metrics_densenet, metrics_mobilenet = main()
+    metrics = main()

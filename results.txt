@@ -8,87 +8,87 @@ DenseNet...
 MobileNetV2...
 Training models...
 Training ResNet18...
-Epoch 1/20, Train Loss: 1.6817, Val Loss: 1.6146
-Epoch 2/20, Train Loss: 1.2186, Val Loss: 1.1974
-Epoch 3/20, Train Loss: 0.9066, Val Loss: 0.9575
+Epoch 1/20, Train Loss: 1.7596, Val Loss: 1.5737
+Epoch 2/20, Train Loss: 1.2801, Val Loss: 1.2450
+Epoch 3/20, Train Loss: 0.9608, Val Loss: 0.9880
 Training stopped due to timeout at epoch 3.
-Time spent: 1 min 10 sec of 1 min allowed.
-Training VGG16...
-Epoch 1/20, Train Loss: 1.1444, Val Loss: 0.6522
-Training stopped due to timeout at epoch 1.
-Time spent: 2 min 6 sec of 1 min allowed.
-Training InceptionV3...
-Epoch 1/20, Train Loss: 1.5999, Val Loss: 1.3809
-Epoch 2/20, Train Loss: 1.0372, Val Loss: 1.1218
-Training stopped due to timeout at epoch 2.
-Time spent: 1 min 31 sec of 1 min allowed.
-Training DenseNet...
-Epoch 1/20, Train Loss: 1.6352, Val Loss: 1.4977
-Training stopped due to timeout at epoch 1.
 Time spent: 1 min 19 sec of 1 min allowed.
-Training MobileNetV2...
-Epoch 1/20, Train Loss: 1.6631, Val Loss: 1.5648
-Epoch 2/20, Train Loss: 1.0851, Val Loss: 1.1377
+Training VGG16...
+Epoch 1/20, Train Loss: 1.0969, Val Loss: 0.6223
+Training stopped due to timeout at epoch 1.
+Time spent: 2 min 10 sec of 1 min allowed.
+Training InceptionV3...
+Epoch 1/20, Train Loss: 1.5180, Val Loss: 1.3979
+Epoch 2/20, Train Loss: 0.9589, Val Loss: 1.0461
 Training stopped due to timeout at epoch 2.
-Time spent: 1 min 13 sec of 1 min allowed.
+Time spent: 1 min 25 sec of 1 min allowed.
+Training DenseNet...
+Epoch 1/20, Train Loss: 1.5345, Val Loss: 1.3231
+Training stopped due to timeout at epoch 1.
+Time spent: 1 min 16 sec of 1 min allowed.
+Training MobileNetV2...
+Epoch 1/20, Train Loss: 1.5375, Val Loss: 1.3495
+Epoch 2/20, Train Loss: 1.0087, Val Loss: 0.9425
+Training stopped due to timeout at epoch 2.
+Time spent: 1 min 21 sec of 1 min allowed.
 Evaluating models...
 Evaluating ResNet18 on Test Data...
 Confusion Matrix:
-[[19  0  0  0  0  0]
- [ 0  9  0  7  4  0]
- [ 0  0 21  0  0  0]
- [ 0  0  0 19  0  0]
- [ 2  0  8  2 14  0]
- [ 0  0  0  2  0 13]]
-Accuracy: 0.7917
-Precision: 0.8304
-Recall: 0.7917
-F1-Score: 0.7776
+[[20  0  0  0  1  0]
+ [ 0  7  0  1  9  0]
+ [ 0  0 15  0  0  0]
+ [ 1  1  0 15  2  2]
+ [ 0  0  3  2 19  0]
+ [ 0  0  0  0  0 22]]
+Accuracy: 0.8167
+Precision: 0.8313
+Recall: 0.8167
+F1-Score: 0.8078
 Evaluating VGG16 on Test Data...
 Confusion Matrix:
-[[19  0  0  0  0  0]
- [ 0 15  0  5  0  0]
- [ 0  0 21  0  0  0]
- [ 0  0  0 19  0  0]
- [ 0  5  1 10 10  0]
- [ 0  0  0  1  0 14]]
-Accuracy: 0.8167
-Precision: 0.8780
-Recall: 0.8167
-F1-Score: 0.8067
+[[21  0  0  0  0  0]
+ [ 0 16  1  0  0  0]
+ [ 0  0 15  0  0  0]
+ [ 0  7  0 14  0  0]
+ [ 0  1  2  1 19  1]
+ [ 0  0  0  0  0 22]]
+Accuracy: 0.8917
+Precision: 0.9123
+Recall: 0.8917
+F1-Score: 0.8913
 Evaluating InceptionV3 on Test Data...
 Confusion Matrix:
-[[19  0  0  0  0  0]
- [ 0  8  1 11  0  0]
- [ 0  0 15  6  0  0]
- [ 0  0  0 19  0  0]
- [ 0  0  5 12  9  0]
- [ 0  0  1  2  0 12]]
-Accuracy: 0.6833
-Precision: 0.8462
-Recall: 0.6833
-F1-Score: 0.6854
+[[21  0  0  0  0  0]
+ [ 0  4  1  2  9  1]
+ [ 0  0 15  0  0  0]
+ [ 0  0  0 17  4  0]
+ [ 0  0  0  3 21  0]
+ [ 0  0  0  0  0 22]]
+Accuracy: 0.8333
+Precision: 0.8680
+Recall: 0.8333
+F1-Score: 0.8124
 Evaluating DenseNet on Test Data...
 Confusion Matrix:
-[[14  0  4  0  0  1]
- [ 0 10  4  5  0  1]
- [ 0  1 16  3  0  1]
- [ 0  0  1 17  0  1]
- [ 1  0 11  3  2  9]
- [ 0  0  0  1  0 14]]
-Accuracy: 0.6083
-Precision: 0.7514
-Recall: 0.6083
-F1-Score: 0.5626
+[[21  0  0  0  0  0]
+ [ 0 17  0  0  0  0]
+ [ 0  1  9  0  0  5]
+ [ 0  9  0  6  0  6]
+ [ 0 16  1  0  0  7]
+ [ 0  0  0  0  0 22]]
+Accuracy: 0.6250
+Precision: 0.6193
+Recall: 0.6250
+F1-Score: 0.5532
 Evaluating MobileNetV2 on Test Data...
 Confusion Matrix:
-[[19  0  0  0  0  0]
- [ 0  0  0 20  0  0]
- [ 0  0 20  1  0  0]
- [ 0  0  0 19  0  0]
- [ 0  0  0 24  1  1]
- [ 0  0  0  0  0 15]]
-Accuracy: 0.6167
-Precision: 0.7142
-Recall: 0.6167
-F1-Score: 0.5386
+[[21  0  0  0  0  0]
+ [ 3  2  0  4  7  1]
+ [ 0  0 14  1  0  0]
+ [ 2  0  0 16  2  1]
+ [ 6  0  0  6 12  0]
+ [ 0  0  0  1  0 21]]
+Accuracy: 0.7167
+Precision: 0.7632
+Recall: 0.7167
+F1-Score: 0.6813
