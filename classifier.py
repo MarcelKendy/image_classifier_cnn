@@ -41,7 +41,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=5, patience=5, timeout=120*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, model_name, epochs=2, patience=5, timeout=120*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -52,6 +52,7 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
         criterion: Loss function.
         optimizer: Optimizer.
         device: 'cpu' or 'cuda' (GPU).
+        model_name: Name of the model (used for saving graphs).
         epochs: Maximum number of training epochs.
         patience: Early stopping patience.
         timeout: Maximum time for training in seconds. If False, no timeout is applied.
@@ -130,9 +131,42 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, device, e
     timeout_minutes = timeout // 60 if timeout else "no limit"
     print(f"Time spent: {int(minutes)} min {int(seconds)} sec of {timeout_minutes} min allowed.")
 
+    # Save validation loss graph
+    save_loss_graph(train_losses, val_losses, model_name, f"loss_progressions/{model_name}_loss.png")
+
     return model, train_losses, val_losses
 
-# Function to plot the confusion matrix
+# Function to save the Training and Validation Loss Progression
+def save_loss_graph(train_losses, val_losses, model_name, save_path=None):
+    """
+    Save the training and validation loss graph during training.
+    
+    Args:
+        train_losses: List of training losses for each epoch.
+        val_losses: List of validation losses for each epoch.
+        model_name: Name of the model.
+        save_path: Path to save the plot image. If None, the plot will be shown on the screen.
+    """
+    plt.figure()
+    # Plot training losses
+    plt.plot(range(1, len(train_losses) + 1), train_losses, marker='o', label="Training Loss")
+    # Plot validation losses
+    plt.plot(range(1, len(val_losses) + 1), val_losses, marker='o', label="Validation Loss")
+    
+    # Add titles and labels
+    plt.title(f"Loss Progression - {model_name}")
+    plt.xlabel("Epoch")
+    plt.ylabel("Loss")
+    plt.grid(True)
+    plt.legend()  # Add legend to distinguish the two lines
+
+    if save_path:
+        plt.savefig(save_path)
+        plt.close()  # Close the plot to avoid displaying it
+    else:
+        plt.show()
+
+# Function to plot the Confusion Matrix
 def plot_confusion_matrix(cm, class_names, title='Confusion Matrix', save_path=None):
     """
     Plot and save the confusion matrix.
@@ -440,7 +474,7 @@ def main():
         optimizer = optimizer_type(model.parameters(), lr=learning_rate)
         
         # Train the model
-        model, train_losses, val_losses = train_model(model, train_loader, val_loader, nn.CrossEntropyLoss(), optimizer, device)
+        model, train_losses, val_losses = train_model(model, train_loader, val_loader, nn.CrossEntropyLoss(), optimizer, device, model_name)
 
     # Step 4/4: Evaluate models
     print("Evaluating models...") 
