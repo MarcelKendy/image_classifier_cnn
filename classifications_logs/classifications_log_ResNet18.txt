@@ -1,0 +1,402 @@
+Classification Results for Model: ResNet18
+==================================================
+Image_1
+True Label: apple
+Predicted: bell
+Probabilities: apple: 0.3156, bat: 0.1980, bell: 0.3347, bone: 0.1517
+--------------------------------------------------
+Image_2
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3537, bat: 0.2204, bell: 0.2791, bone: 0.1467
+--------------------------------------------------
+Image_3
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1526, bat: 0.2880, bell: 0.3171, bone: 0.2424
+--------------------------------------------------
+Image_4
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2686, bat: 0.4083, bell: 0.1890, bone: 0.1342
+--------------------------------------------------
+Image_5
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2850, bat: 0.2494, bell: 0.3523, bone: 0.1133
+--------------------------------------------------
+Image_6
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2982, bat: 0.2318, bell: 0.3384, bone: 0.1316
+--------------------------------------------------
+Image_7
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2320, bat: 0.2821, bell: 0.3539, bone: 0.1320
+--------------------------------------------------
+Image_8
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.4162, bat: 0.2228, bell: 0.2497, bone: 0.1113
+--------------------------------------------------
+Image_9
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2812, bat: 0.2736, bell: 0.3503, bone: 0.0949
+--------------------------------------------------
+Image_10
+True Label: bone
+Predicted: bone
+Probabilities: apple: 0.1921, bat: 0.2670, bell: 0.2394, bone: 0.3015
+--------------------------------------------------
+Image_11
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2152, bat: 0.3483, bell: 0.2737, bone: 0.1627
+--------------------------------------------------
+Image_12
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2396, bat: 0.2434, bell: 0.3963, bone: 0.1208
+--------------------------------------------------
+Image_13
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2923, bat: 0.2129, bell: 0.3976, bone: 0.0972
+--------------------------------------------------
+Image_14
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.1945, bat: 0.3345, bell: 0.3152, bone: 0.1558
+--------------------------------------------------
+Image_15
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2434, bat: 0.3031, bell: 0.2829, bone: 0.1705
+--------------------------------------------------
+Image_16
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.1768, bat: 0.3354, bell: 0.3249, bone: 0.1630
+--------------------------------------------------
+Image_17
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2448, bat: 0.2121, bell: 0.3972, bone: 0.1459
+--------------------------------------------------
+Image_18
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1396, bat: 0.3508, bell: 0.2741, bone: 0.2355
+--------------------------------------------------
+Image_19
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.3066, bat: 0.1808, bell: 0.3780, bone: 0.1347
+--------------------------------------------------
+Image_20
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1820, bat: 0.3068, bell: 0.2810, bone: 0.2302
+--------------------------------------------------
+Image_21
+True Label: bat
+Predicted: apple
+Probabilities: apple: 0.3068, bat: 0.2639, bell: 0.2629, bone: 0.1664
+--------------------------------------------------
+Image_22
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1714, bat: 0.2641, bell: 0.3136, bone: 0.2509
+--------------------------------------------------
+Image_23
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.3004, bat: 0.3117, bell: 0.2409, bone: 0.1469
+--------------------------------------------------
+Image_24
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1688, bat: 0.3220, bell: 0.3047, bone: 0.2046
+--------------------------------------------------
+Image_25
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3363, bat: 0.2174, bell: 0.2833, bone: 0.1629
+--------------------------------------------------
+Image_26
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3864, bat: 0.2329, bell: 0.2428, bone: 0.1378
+--------------------------------------------------
+Image_27
+True Label: bell
+Predicted: apple
+Probabilities: apple: 0.3773, bat: 0.1913, bell: 0.3241, bone: 0.1072
+--------------------------------------------------
+Image_28
+True Label: bone
+Predicted: bone
+Probabilities: apple: 0.1809, bat: 0.2599, bell: 0.2661, bone: 0.2930
+--------------------------------------------------
+Image_29
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.3398, bat: 0.1177, bell: 0.4309, bone: 0.1116
+--------------------------------------------------
+Image_30
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1644, bat: 0.3260, bell: 0.2674, bone: 0.2422
+--------------------------------------------------
+Image_31
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1861, bat: 0.2340, bell: 0.3294, bone: 0.2505
+--------------------------------------------------
+Image_32
+True Label: bell
+Predicted: apple
+Probabilities: apple: 0.2934, bat: 0.2802, bell: 0.2829, bone: 0.1434
+--------------------------------------------------
+Image_33
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2629, bat: 0.4113, bell: 0.1923, bone: 0.1335
+--------------------------------------------------
+Image_34
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1603, bat: 0.2571, bell: 0.2914, bone: 0.2911
+--------------------------------------------------
+Image_35
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3221, bat: 0.2429, bell: 0.2760, bone: 0.1589
+--------------------------------------------------
+Image_36
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.4324, bat: 0.2075, bell: 0.2400, bone: 0.1201
+--------------------------------------------------
+Image_37
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3208, bat: 0.2485, bell: 0.2696, bone: 0.1611
+--------------------------------------------------
+Image_38
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2177, bat: 0.3088, bell: 0.2723, bone: 0.2011
+--------------------------------------------------
+Image_39
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2766, bat: 0.2042, bell: 0.3525, bone: 0.1667
+--------------------------------------------------
+Image_40
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2564, bat: 0.3205, bell: 0.2550, bone: 0.1682
+--------------------------------------------------
+Image_41
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2391, bat: 0.3105, bell: 0.3169, bone: 0.1335
+--------------------------------------------------
+Image_42
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2576, bat: 0.3072, bell: 0.2438, bone: 0.1914
+--------------------------------------------------
+Image_43
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2568, bat: 0.3185, bell: 0.2691, bone: 0.1556
+--------------------------------------------------
+Image_44
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2555, bat: 0.2310, bell: 0.4112, bone: 0.1024
+--------------------------------------------------
+Image_45
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.2157, bat: 0.2441, bell: 0.3184, bone: 0.2217
+--------------------------------------------------
+Image_46
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2766, bat: 0.1690, bell: 0.4223, bone: 0.1322
+--------------------------------------------------
+Image_47
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1828, bat: 0.2005, bell: 0.3633, bone: 0.2534
+--------------------------------------------------
+Image_48
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3570, bat: 0.2117, bell: 0.3138, bone: 0.1175
+--------------------------------------------------
+Image_49
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.2000, bat: 0.3079, bell: 0.2724, bone: 0.2197
+--------------------------------------------------
+Image_50
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1941, bat: 0.2288, bell: 0.3535, bone: 0.2236
+--------------------------------------------------
+Image_51
+True Label: apple
+Predicted: bell
+Probabilities: apple: 0.3068, bat: 0.2205, bell: 0.3261, bone: 0.1466
+--------------------------------------------------
+Image_52
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.2349, bat: 0.2535, bell: 0.2956, bone: 0.2159
+--------------------------------------------------
+Image_53
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3531, bat: 0.2252, bell: 0.2957, bone: 0.1260
+--------------------------------------------------
+Image_54
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3197, bat: 0.2394, bell: 0.3058, bone: 0.1351
+--------------------------------------------------
+Image_55
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1614, bat: 0.3151, bell: 0.2845, bone: 0.2390
+--------------------------------------------------
+Image_56
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2607, bat: 0.2397, bell: 0.3392, bone: 0.1605
+--------------------------------------------------
+Image_57
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1697, bat: 0.3184, bell: 0.2471, bone: 0.2648
+--------------------------------------------------
+Image_58
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2015, bat: 0.3165, bell: 0.3123, bone: 0.1697
+--------------------------------------------------
+Image_59
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.3022, bat: 0.2081, bell: 0.3892, bone: 0.1006
+--------------------------------------------------
+Image_60
+True Label: apple
+Predicted: bell
+Probabilities: apple: 0.2361, bat: 0.2475, bell: 0.3277, bone: 0.1887
+--------------------------------------------------
+Image_61
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3209, bat: 0.2265, bell: 0.3084, bone: 0.1443
+--------------------------------------------------
+Image_62
+True Label: bone
+Predicted: bone
+Probabilities: apple: 0.2061, bat: 0.2834, bell: 0.1916, bone: 0.3189
+--------------------------------------------------
+Image_63
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.1542, bat: 0.3776, bell: 0.3184, bone: 0.1499
+--------------------------------------------------
+Image_64
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3234, bat: 0.2462, bell: 0.2826, bone: 0.1478
+--------------------------------------------------
+Image_65
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2347, bat: 0.2906, bell: 0.3088, bone: 0.1660
+--------------------------------------------------
+Image_66
+True Label: bat
+Predicted: bat
+Probabilities: apple: 0.2674, bat: 0.2988, bell: 0.2722, bone: 0.1617
+--------------------------------------------------
+Image_67
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.2868, bat: 0.2652, bell: 0.2311, bone: 0.2170
+--------------------------------------------------
+Image_68
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2783, bat: 0.2726, bell: 0.3265, bone: 0.1226
+--------------------------------------------------
+Image_69
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2693, bat: 0.2744, bell: 0.3163, bone: 0.1400
+--------------------------------------------------
+Image_70
+True Label: bone
+Predicted: bat
+Probabilities: apple: 0.1812, bat: 0.2983, bell: 0.2837, bone: 0.2368
+--------------------------------------------------
+Image_71
+True Label: bone
+Predicted: bone
+Probabilities: apple: 0.2028, bat: 0.2170, bell: 0.2659, bone: 0.3143
+--------------------------------------------------
+Image_72
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3438, bat: 0.2606, bell: 0.2715, bone: 0.1242
+--------------------------------------------------
+Image_73
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2158, bat: 0.2880, bell: 0.3610, bone: 0.1352
+--------------------------------------------------
+Image_74
+True Label: bone
+Predicted: bell
+Probabilities: apple: 0.1626, bat: 0.2542, bell: 0.2981, bone: 0.2851
+--------------------------------------------------
+Image_75
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2479, bat: 0.1984, bell: 0.3884, bone: 0.1654
+--------------------------------------------------
+Image_76
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.2538, bat: 0.2217, bell: 0.3978, bone: 0.1267
+--------------------------------------------------
+Image_77
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2313, bat: 0.2393, bell: 0.3449, bone: 0.1845
+--------------------------------------------------
+Image_78
+True Label: apple
+Predicted: apple
+Probabilities: apple: 0.3137, bat: 0.2645, bell: 0.2698, bone: 0.1519
+--------------------------------------------------
+Image_79
+True Label: bell
+Predicted: bell
+Probabilities: apple: 0.3056, bat: 0.1884, bell: 0.4010, bone: 0.1050
+--------------------------------------------------
+Image_80
+True Label: bat
+Predicted: bell
+Probabilities: apple: 0.2509, bat: 0.2626, bell: 0.3217, bone: 0.1648
+--------------------------------------------------

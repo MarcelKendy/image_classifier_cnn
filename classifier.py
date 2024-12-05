@@ -41,7 +41,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, model_name, epochs=2, patience=5, timeout=120*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, model_name, epochs=20, patience=5, timeout=120*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -193,13 +193,14 @@ def plot_confusion_matrix(cm, class_names, title='Confusion Matrix', save_path=N
 def evaluate_model(model, test_loader, device, class_names, model_name):
     """
     Evaluate the model on the test set and compute performance metrics.
-    
+    Logs detailed classification results for each image in a separate file.
+
     Args:
         model: PyTorch model instance.
         test_loader: DataLoader for test data.
-        device: cpu or cuda (GPU).
+        device: 'cpu' or 'cuda' (GPU).
         class_names: List of class names.
-        model_name: The name of the model 
+        model_name: Name of the model.
 
     Returns:
         metrics: Dictionary containing metrics (accuracy, precision, recall, f1, confusion matrix).
@@ -207,15 +208,41 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
     model.eval()
     all_labels = []
     all_predictions = []
+    all_probabilities = []
 
-    with torch.no_grad():
-        for inputs, labels in test_loader:
-            inputs, labels = inputs.to(device), labels.to(device)
-            outputs = model(inputs)
-            _, preds = torch.max(outputs, 1)
-            all_labels.extend(labels.cpu().numpy())
-            all_predictions.extend(preds.cpu().numpy())
+    log_file = f"classifications_logs/classifications_log_{model_name}.txt"
 
+    with open(log_file, "w") as log:
+        log.write(f"Classification Results for Model: {model_name}\n")
+        log.write("=" * 50 + "\n")
+
+        with torch.no_grad():
+            for i, (inputs, labels) in enumerate(test_loader):
+                inputs, labels = inputs.to(device), labels.to(device)
+                outputs = model(inputs)
+
+                # Get probabilities (softmax) and predictions
+                probabilities = torch.nn.functional.softmax(outputs, dim=1)
+                _, preds = torch.max(outputs, 1)
+
+                all_labels.extend(labels.cpu().numpy())
+                all_predictions.extend(preds.cpu().numpy())
+                all_probabilities.extend(probabilities.cpu().numpy())
+
+                # Log classification results for each image in the batch
+                for idx in range(inputs.size(0)):
+                    image_name = f"Image_{i * test_loader.batch_size + idx + 1}"  # Generate an image name
+                    label = class_names[labels[idx].item()]
+                    prediction = class_names[preds[idx].item()]
+                    probs = probabilities[idx].cpu().numpy()
+
+                    log.write(f"{image_name}\n")
+                    log.write(f"True Label: {label}\n")
+                    log.write(f"Predicted: {prediction}\n")
+                    log.write(f"Probabilities: {', '.join(f'{class_names[j]}: {probs[j]:.4f}' for j in range(len(class_names)))}\n")
+                    log.write("-" * 50 + "\n")
+
+    # Compute metrics
     cm = confusion_matrix(all_labels, all_predictions)
     accuracy = accuracy_score(all_labels, all_predictions)
     precision = precision_score(all_labels, all_predictions, average='weighted')
@@ -441,7 +468,7 @@ def main():
 
     # Hyperparameter optimization
     print("Optimizing parameters...")
-    #hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names)
+    hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names)
 
     # Step 2/4: Models initialization
     print("Initializing models...")
