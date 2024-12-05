@@ -2,12 +2,12 @@
 
 # Torch: PyTorch library for deep learning operations.
 # torchvision: For dataset and image transformations.
-# numpy: For numerical operations.
 # sklearn: For evaluation metrics and confusion matrix.
 # matplotlib: For creating visualization charts
 # seaborn: Data visualization to create the confusion matrix.
 # sys: To write in a txt file
 # time: To monitor the time spent
+# random: To randomize subsets of configs of hyperparameters
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -15,11 +15,11 @@ from torch.utils.data import DataLoader, random_split
 from torchvision import datasets, transforms, models
 from torchvision.models import ResNet18_Weights, VGG16_Weights, Inception_V3_Weights, DenseNet121_Weights, MobileNet_V2_Weights
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import sys 
 import time
+import random
 
 # AUX Class Logger to redirect stdout to both console and a file
 class Logger:
@@ -41,7 +41,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=1, patience=5, timeout=1*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, epochs=5, patience=5, timeout=120*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -138,7 +138,7 @@ def plot_confusion_matrix(cm, class_names, title='Confusion Matrix', save_path=N
     Plot and save the confusion matrix.
 
     Args:
-        cm: Confusion matrix (array-like).
+        cm: Confusion matrix.
         class_names: List of class names.
         title: Title of the plot.
         save_path: Path to save the plot image. If None, the plot will be shown on the screen.
@@ -163,7 +163,7 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
     Args:
         model: PyTorch model instance.
         test_loader: DataLoader for test data.
-        device: 'cpu' or 'cuda' (GPU).
+        device: cpu or cuda (GPU).
         class_names: List of class names.
         model_name: The name of the model 
 
@@ -206,6 +206,147 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
         'f1_score': f1
     }
 
+# Function to initialize models
+def get_model(model_name, num_classes, freeze_features=False):
+    if model_name == "ResNet18":
+        model = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+        model.fc = nn.Linear(model.fc.in_features, num_classes)
+    elif model_name == "VGG16":
+        model = models.vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
+        model.classifier[6] = nn.Linear(model.classifier[6].in_features, num_classes)
+    elif model_name == "InceptionV3":
+        model = models.inception_v3(weights=Inception_V3_Weights.IMAGENET1K_V1, aux_logits=True)
+        model.AuxLogits.fc = nn.Linear(model.AuxLogits.fc.in_features, num_classes)
+        model.fc = nn.Linear(model.fc.in_features, num_classes)
+    elif model_name == "DenseNet":
+        model = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
+        model.classifier = nn.Linear(model.classifier.in_features, num_classes)
+    elif model_name == "MobileNetV2":
+        model = models.mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
+        model.classifier[1] = nn.Linear(model.classifier[1].in_features, num_classes)
+    
+    # Freezing features 
+    if freeze_features:
+        for param in model.parameters():
+            param.requires_grad = False
+        # Ensuring classification layers remain trainable (I guess...)
+        if isinstance(model, models.ResNet):
+            for param in model.fc.parameters():
+                param.requires_grad = True
+        elif isinstance(model, models.VGG):
+            for param in model.classifier[6].parameters():
+                param.requires_grad = True
+        elif isinstance(model, models.Inception3):
+            # Inception V3 has 'fc' and 'AuxLogits.fc' layers
+            for param in model.fc.parameters():
+                param.requires_grad = True
+            for param in model.AuxLogits.fc.parameters():
+                param.requires_grad = True
+        elif isinstance(model, models.DenseNet):
+            for param in model.classifier.parameters():
+                param.requires_grad = True
+        elif isinstance(model, models.MobileNetV2):
+            for param in model.classifier[1].parameters():
+                param.requires_grad = True
+    
+    return model
+
+# Function for hyperparameter optimization
+def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names):
+    """
+    Optimizes hyperparameters for each model using random search.
+
+    Args:
+        hyperparams_dict: Dictionary of hyperparameters for all models.
+        train_dataset: Dataset for training.
+        val_dataset: Dataset for validation.
+        device: cpu or cuda (GPU).
+        class_names: List of class names.
+
+    Updates:
+        hyperparams_dict is updated in-place with the optimized hyperparameters.
+    """
+    # Possible values for random search
+    learning_rates = [1e-2, 1e-3, 1e-4]
+    batch_sizes = [8, 16, 32]
+    optimizers = [optim.Adam, optim.SGD]    
+    n_testings = int(0.6 * (len(learning_rates) * len(batch_sizes) * len(optimizers))) # 60% of all random combinations possible  
+    upper_limit_testings = 8  # Upper limit to the number of random combinations 
+    max_n_testings = min(n_testings, upper_limit_testings)    
+
+    for model_name, params in hyperparams_dict.items():
+        print(f"Optimizing hyperparameters for {model_name}...")
+
+        best_val_loss = float('inf')
+        best_params = params
+        tried_combinations = set()
+
+        while len(tried_combinations) < max_n_testings:
+            # Randomly select a combination
+            lr = random.choice(learning_rates)
+            batch_size = random.choice(batch_sizes)
+            optimizer_class = random.choice(optimizers)
+
+            current_combination = (lr, batch_size, optimizer_class)
+            if current_combination in tried_combinations:
+                continue
+            tried_combinations.add(current_combination)
+
+            print(f"Testing combination ({len(tried_combinations)}/{max_n_testings}): Learning Rate = {lr}, Batch Size = {batch_size}, Optimizer = {optimizer_class.__name__}")
+
+            # DataLoaders
+            train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+
+            # Initialize model, optimizer, and criterion
+            model = get_model(model_name, len(class_names)).to(device)
+            criterion = nn.CrossEntropyLoss()
+            optimizer = optimizer_class(model.parameters(), lr=lr)
+
+            # Train for a single epoch
+            model.train()
+            for inputs, labels in train_loader:
+                inputs, labels = inputs.to(device), labels.to(device)
+                model.zero_grad()
+                optimizer.zero_grad()
+
+                outputs = model(inputs)
+                if isinstance(outputs, tuple):  
+                    outputs = outputs.logits
+
+                loss = criterion(outputs, labels)
+                loss.backward()
+                optimizer.step()
+
+            # Validate and calculate validation loss
+            model.eval()
+            val_loss = 0.0
+            with torch.no_grad():
+                for inputs, labels in val_loader:
+                    inputs, labels = inputs.to(device), labels.to(device)
+                    outputs = model(inputs)
+                    if isinstance(outputs, tuple):
+                        outputs = outputs.logits
+                    loss = criterion(outputs, labels)
+                    val_loss += loss.item()
+
+            val_loss /= len(val_loader)
+            print(f"Validation Loss: {val_loss:.4f}")
+
+            # Update best parameters if the current loss is lower
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                best_params = {"learning_rate": lr, "batch_size": batch_size, "optimizer": optimizer_class}
+
+            # Clean up to prevent memory issues
+            del model
+            del optimizer
+            torch.cuda.empty_cache()
+
+        # Save the best hyperparameters for this model
+        hyperparams_dict[model_name] = best_params
+        print(f"Best params for {model_name} (Val Loss = {best_val_loss}): {best_params}")
+
 # Main code
 def main():
     print("Initializing program...")
@@ -213,7 +354,6 @@ def main():
     print("Preparing Dataset...")
     DATASET_PATH = "image_dataset"
     IMAGE_SIZE = (299, 299)  # Reshaping resolution
-    BATCH_SIZE = 32
     HOLD_OUT_SPLIT = 0.2  # 20% of the data will be reserved for the final test
 
     # Pre-Processing
@@ -234,6 +374,7 @@ def main():
     # Loading dataset and separating between training and testing (Hold-Out)
     dataset = datasets.ImageFolder(DATASET_PATH, transform=None)
     class_names = dataset.classes
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'  # Checking which device to use
     hold_out_size = int(HOLD_OUT_SPLIT * len(dataset))
     train_val_size = len(dataset) - hold_out_size
     train_val_dataset, test_dataset = random_split(dataset, [train_val_size, hold_out_size])
@@ -248,102 +389,69 @@ def main():
     val_dataset.dataset.transform = test_val_transform
     test_dataset.dataset.transform = test_val_transform
 
-    # Creating DataLoaders
-    train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=BATCH_SIZE, shuffle=False)    
+    # Default hyperparameters for all models
+    default_hyperparams = {
+        "batch_size": 32,
+        "learning_rate": 1e-3,
+        "optimizer": optim.Adam
+    }
+
+    # Hyperparameter dictionary for all models
+    hyperparams_dict = {
+        "ResNet18": default_hyperparams.copy(),
+        "VGG16": default_hyperparams.copy(),
+        "InceptionV3": default_hyperparams.copy(),
+        "DenseNet": default_hyperparams.copy(),
+        "MobileNetV2": default_hyperparams.copy()
+    }
+
+    # Hyperparameter optimization
+    print("Optimizing parameters...")
+    #hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names)
 
     # Step 2/4: Models initialization
     print("Initializing models...")
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'  # Checking which device to use
 
-    # ResNet18 model
-    print("Initializing ResNet18...")
-    model_resnet = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-    for param in model_resnet.parameters():
-        param.requires_grad = False
-    model_resnet.fc = nn.Linear(model_resnet.fc.in_features, len(class_names))
-    model_resnet = model_resnet.to(device)
+    # Initialize models_list, a tuple with the model and its name
+    models_list = [(None, "ResNet18"), (None, "VGG16"), (None, "InceptionV3"), (None, "DenseNet"), (None, "MobileNetV2")]
 
-    # VGG16 model
-    print("Initializing VGG16...")
-    model_vgg = models.vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
-    for param in model_vgg.parameters():
-        param.requires_grad = False
-    model_vgg.classifier[6] = nn.Linear(model_vgg.classifier[6].in_features, len(class_names))
-    model_vgg = model_vgg.to(device)
+    # Iterate through models_list to initialize the models
+    for i, (model, model_name) in enumerate(models_list):
+        print(f"Initializing {model_name}...")
+        initialized_model = get_model(model_name, num_classes=len(class_names), freeze_features=True).to(device)
+        models_list[i] = (initialized_model, model_name)  # Update the "None" placeholder with the initialized model
 
-    # Inception_v3 model
-    print("Initializing Inception_v3...")
-    model_inception = models.inception_v3(weights=Inception_V3_Weights.IMAGENET1K_V1, aux_logits=True)
-    for param in model_inception.parameters():
-        param.requires_grad = False
-    model_inception.AuxLogits.fc = nn.Linear(model_inception.AuxLogits.fc.in_features, len(class_names))
-    model_inception.fc = nn.Linear(model_inception.fc.in_features, len(class_names))
-    model_inception = model_inception.to(device)
-
-    # DenseNet model
-    print("Initializing DenseNet...")
-    model_densenet = models.densenet121(weights=DenseNet121_Weights.IMAGENET1K_V1)
-    for param in model_densenet.parameters():
-        param.requires_grad = False
-    model_densenet.classifier = nn.Linear(model_densenet.classifier.in_features, len(class_names))
-    model_densenet = model_densenet.to(device)
-
-    # MobileNetV2 model
-    print("Initializing MobileNetV2...")
-    model_mobilenet = models.mobilenet_v2(weights=MobileNet_V2_Weights.IMAGENET1K_V1)
-    for param in model_mobilenet.parameters():
-        param.requires_grad = False
-    model_mobilenet.classifier[1] = nn.Linear(model_mobilenet.classifier[1].in_features, len(class_names))
-    model_mobilenet = model_mobilenet.to(device)
-
-    # Step 3/4: Training models
+    # Step 3/4: Training models with selected hyperparameters
     print("Training models...")
-    print("Training ResNet18...")
-    optimizer_resnet = optim.Adam(model_resnet.parameters(), lr=1e-3)
-    model_resnet, train_losses_resnet, val_losses_resnet = train_model(model_resnet, train_loader, val_loader,
-                                                                       nn.CrossEntropyLoss(), optimizer_resnet, device)
 
-    print("Training VGG16...")
-    optimizer_vgg = optim.Adam(model_vgg.parameters(), lr=1e-3)
-    model_vgg, train_losses_vgg, val_losses_vgg = train_model(model_vgg, train_loader, val_loader,
-                                                              nn.CrossEntropyLoss(), optimizer_vgg, device)
+    # Iterate over the list of models and train them with the apropriate hyperparams
+    for model, model_name in models_list:
+        batch_size = hyperparams_dict[model_name]["batch_size"]
+        learning_rate = hyperparams_dict[model_name]["learning_rate"]
+        optimizer_type = hyperparams_dict[model_name]["optimizer"]
+        print(f"Training {model_name}... (Hyper Params: Learning Rate = {learning_rate}, Batch Size = {batch_size}, Optimizer = {optimizer_type.__name__})")
 
-    print("Training InceptionV3...")
-    optimizer_inception = optim.Adam(model_inception.parameters(), lr=1e-3)
-    model_inception, train_losses_inception, val_losses_inception = train_model(model_inception, train_loader, val_loader,
-                                                                                nn.CrossEntropyLoss(), optimizer_inception, device)
-
-    print("Training DenseNet...")
-    optimizer_densenet = optim.Adam(model_densenet.parameters(), lr=1e-3)
-    model_densenet, train_losses_densenet, val_losses_densenet = train_model(model_densenet, train_loader, val_loader,
-                                                                             nn.CrossEntropyLoss(), optimizer_densenet, device)
-
-    print("Training MobileNetV2...")
-    optimizer_mobilenet = optim.Adam(model_mobilenet.parameters(), lr=1e-3)
-    model_mobilenet, train_losses_mobilenet, val_losses_mobilenet = train_model(model_mobilenet, train_loader, val_loader,
-                                                                                nn.CrossEntropyLoss(), optimizer_mobilenet, device)
+        # Create DataLoader with the hyperparameter batch_size
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+        
+        # Set optimizer with the selected learning rate
+        optimizer = optimizer_type(model.parameters(), lr=learning_rate)
+        
+        # Train the model
+        model, train_losses, val_losses = train_model(model, train_loader, val_loader, nn.CrossEntropyLoss(), optimizer, device)
 
     # Step 4/4: Evaluate models
     print("Evaluating models...") 
-
-    # List of tuples with models and their names
-    models_list = [
-        (model_resnet, "ResNet18"),
-        (model_vgg, "VGG16"),
-        (model_inception, "InceptionV3"),
-        (model_densenet, "DenseNet"),
-        (model_mobilenet, "MobileNetV2")
-    ]
     metrics = {}
 
-    # Evaluating each model
+    # Iterate over the list of models and evaluate them on test data
     for model, model_name in models_list:
         print(f"Evaluating {model_name} on Test Data...")
         metrics[model_name] = evaluate_model(model, test_loader, device, class_names, model_name)
-
     return metrics
 
 if __name__ == "__main__":
     metrics = main()
+

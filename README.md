@@ -1,8 +1,10 @@
-# Projeto de Classificação de Imagens
+# Projeto de Classificação de Imagens com CNNs
 
-Este projeto utiliza modelos CNN (Convolutional Neural Network) de redes neurais para classificar imagens em diferentes categorias. Ele foi desenvolvido em Python, utilizando frameworks como torch, scikit-learn, matplotlib e numpy.
+Este projeto utiliza modelos CNN (Convolutional Neural Network) de redes neurais para classificar imagens em diferentes categorias. Ele foi desenvolvido em Python, utilizando frameworks como torch, scikit-learn, matplotlib.
 
 Seu objetivo é a implementação de um sistema de treinamento de modelos de redes neurais utilizando PyTorch, com foco na classificação de imagens, para criar uma aplicação flexível e eficiente para treinar diferentes modelos de aprendizado profundo em conjuntos de dados de imagens encontrados com ajuda do kaggle.com, utilizando recursos como parada antecipada (early stopping), controle de tempo máximo de treinamento, data augmentation e otimização de hiperparâmetros. 
+
+O dataset escolhido foi o [Brain Tumor MRI Dataset](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset), que contém 4 classes de imagens representando diferentes tipos de tumores ou a ausência dele: glioma, meningioma, sem tumor e pituitary. A escolha foi feita porque a detecção e classificação rápida de tumores cerebrais é uma área de pesquisa importante no campo de imagens médicas, e ajudam a selecionar o método de tratamento mais apropriado para salvar vidas.
 
 O sistema é capaz de treinar os modelos, avaliar o desempenho no conjunto de validação e salvar o modelo com a melhor performance. Durante o treinamento, o sistema calcula as perdas de treinamento e validação para monitorar o progresso do modelo. O critério de perda utilizado é a função cross_entropy_loss, que é adequada para problemas de classificação com múltiplas classes. A implementação também permite personalizar o número de épocas, a tolerância sob épocas não produtivas, o otimizador, a função de perda entre outros parâmetros.
 
@@ -27,7 +29,7 @@ Livre para qualquer tipo de uso.
 2. **Instalação das Bibliotecas Necessárias**: Execute os comandos abaixo para instalar as bibliotecas usadas no projeto:
 
 ```bash
-pip install numpy torch torchvision scikit-learn matplotlib seaborn
+pip install torch torchvision scikit-learn matplotlib seaborn
 ```
 
 3. **Executando o projeto**: Dentro do diretório do projeto, execute o comando:
