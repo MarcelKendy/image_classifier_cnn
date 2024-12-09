@@ -452,8 +452,8 @@ def main():
 
     # Default hyperparameters for all models
     default_hyperparams = {
-        "batch_size": 32,
-        "learning_rate": 1e-3,
+        "batch_size": 16,
+        "learning_rate": 1e-4,
         "optimizer": optim.Adam
     }
 
@@ -467,7 +467,7 @@ def main():
     }
 
     # Hyperparameter optimization
-    print("Optimizing parameters...")
+    print("Optimizing hyperparameters...")
     hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names)
 
     # Step 2/4: Models initialization

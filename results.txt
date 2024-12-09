@@ -1,6 +1,24 @@
 Initializing program...
 Preparing Dataset...
-Optimizing parameters...
+Optimizing hyperparameters...
+Optimizing hyperparameters for MobileNetV2...
+Testing combination (1/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = SGD
+Validation Loss: 0.5262
+Testing combination (2/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = SGD
+Validation Loss: 1.2881
+Testing combination (3/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = SGD
+Validation Loss: 1.1893
+Testing combination (4/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = Adam
+Validation Loss: 0.3228
+Testing combination (5/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = Adam
+Validation Loss: 0.2167
+Testing combination (6/8): Learning Rate = 0.01, Batch Size = 8, Optimizer = SGD
+Validation Loss: 0.3606
+Testing combination (7/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
+Validation Loss: 0.3554
+Testing combination (8/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = SGD
+Validation Loss: 1.1184
+Best params for MobileNetV2 (Val Loss = 0.2166952513826062): {'learning_rate': 0.001, 'batch_size': 16, 'optimizer': <class 'torch.optim.adam.Adam'>}
 Initializing models...
 Initializing ResNet18...
 Initializing VGG16...
@@ -8,69 +26,141 @@ Initializing InceptionV3...
 Initializing DenseNet...
 Initializing MobileNetV2...
 Training models...
-Training ResNet18... (Hyper Params: Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam)
-Epoch 1/1, Train Loss: 1.2861, Val Loss: 1.1892
-Time spent: 0 min 16 sec of 120 min allowed.
-Training VGG16... (Hyper Params: Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam)
-Epoch 1/1, Train Loss: 0.9262, Val Loss: 0.5124
-Time spent: 1 min 27 sec of 120 min allowed.
-Training InceptionV3... (Hyper Params: Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam)
-Epoch 1/1, Train Loss: 1.2292, Val Loss: 1.0197
-Time spent: 0 min 31 sec of 120 min allowed.
-Training DenseNet... (Hyper Params: Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam)
-Epoch 1/1, Train Loss: 1.2314, Val Loss: 1.0898
-Time spent: 0 min 51 sec of 120 min allowed.
-Training MobileNetV2... (Hyper Params: Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam)
-Epoch 1/1, Train Loss: 1.2752, Val Loss: 1.1181
-Time spent: 0 min 26 sec of 120 min allowed.
+Training ResNet18... (Hyper Params: Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 1.2422, Val Loss: 1.0611
+Epoch 2/20, Train Loss: 0.9692, Val Loss: 0.8516
+Epoch 3/20, Train Loss: 0.8172, Val Loss: 0.7330
+Epoch 4/20, Train Loss: 0.7217, Val Loss: 0.6565
+Epoch 5/20, Train Loss: 0.6576, Val Loss: 0.5926
+Epoch 6/20, Train Loss: 0.6087, Val Loss: 0.5487
+Epoch 7/20, Train Loss: 0.5743, Val Loss: 0.5225
+Epoch 8/20, Train Loss: 0.5433, Val Loss: 0.4910
+Epoch 9/20, Train Loss: 0.5216, Val Loss: 0.4710
+Epoch 10/20, Train Loss: 0.5054, Val Loss: 0.4522
+Epoch 11/20, Train Loss: 0.4871, Val Loss: 0.4349
+Epoch 12/20, Train Loss: 0.4666, Val Loss: 0.4217
+Epoch 13/20, Train Loss: 0.4572, Val Loss: 0.4148
+Epoch 14/20, Train Loss: 0.4449, Val Loss: 0.4011
+Epoch 15/20, Train Loss: 0.4405, Val Loss: 0.3912
+Epoch 16/20, Train Loss: 0.4309, Val Loss: 0.3804
+Epoch 17/20, Train Loss: 0.4093, Val Loss: 0.3866
+Epoch 18/20, Train Loss: 0.4062, Val Loss: 0.3772
+Epoch 19/20, Train Loss: 0.4004, Val Loss: 0.3645
+Epoch 20/20, Train Loss: 0.3893, Val Loss: 0.3646
+Time spent: 72 min 58 sec of 120 min allowed.
+Training VGG16... (Hyper Params: Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 0.9370, Val Loss: 0.7185
+Epoch 2/20, Train Loss: 0.6466, Val Loss: 0.5905
+Epoch 3/20, Train Loss: 0.5554, Val Loss: 0.5317
+Epoch 4/20, Train Loss: 0.5171, Val Loss: 0.4972
+Epoch 5/20, Train Loss: 0.4797, Val Loss: 0.4711
+Epoch 6/20, Train Loss: 0.4621, Val Loss: 0.4564
+Epoch 7/20, Train Loss: 0.4404, Val Loss: 0.4392
+Training stopped due to timeout at epoch 7.
+Time spent: 137 min 24 sec of 120 min allowed.
+Training InceptionV3... (Hyper Params: Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 1.2253, Val Loss: 1.0422
+Epoch 2/20, Train Loss: 0.9664, Val Loss: 0.8518
+Epoch 3/20, Train Loss: 0.8326, Val Loss: 0.7417
+Epoch 4/20, Train Loss: 0.7410, Val Loss: 0.6606
+Epoch 5/20, Train Loss: 0.6833, Val Loss: 0.6141
+Epoch 6/20, Train Loss: 0.6434, Val Loss: 0.5955
+Epoch 7/20, Train Loss: 0.6175, Val Loss: 0.5404
+Epoch 8/20, Train Loss: 0.5951, Val Loss: 0.5210
+Epoch 9/20, Train Loss: 0.5670, Val Loss: 0.5155
+Epoch 10/20, Train Loss: 0.5519, Val Loss: 0.4908
+Epoch 11/20, Train Loss: 0.5423, Val Loss: 0.4778
+Epoch 12/20, Train Loss: 0.5255, Val Loss: 0.4697
+Epoch 13/20, Train Loss: 0.5279, Val Loss: 0.4586
+Epoch 14/20, Train Loss: 0.5207, Val Loss: 0.4412
+Epoch 15/20, Train Loss: 0.5028, Val Loss: 0.4467
+Epoch 16/20, Train Loss: 0.4769, Val Loss: 0.4304
+Epoch 17/20, Train Loss: 0.4831, Val Loss: 0.4308
+Training stopped due to timeout at epoch 17.
+Time spent: 127 min 4 sec of 120 min allowed.
+Training DenseNet... (Hyper Params: Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 1.1804, Val Loss: 0.9743
+Epoch 2/20, Train Loss: 0.8934, Val Loss: 0.7512
+Epoch 3/20, Train Loss: 0.7324, Val Loss: 0.6414
+Epoch 4/20, Train Loss: 0.6459, Val Loss: 0.5694
+Epoch 5/20, Train Loss: 0.5758, Val Loss: 0.5143
+Epoch 6/20, Train Loss: 0.5351, Val Loss: 0.4764
+Epoch 7/20, Train Loss: 0.4993, Val Loss: 0.4439
+Epoch 8/20, Train Loss: 0.4811, Val Loss: 0.4263
+Epoch 9/20, Train Loss: 0.4584, Val Loss: 0.4033
+Epoch 10/20, Train Loss: 0.4395, Val Loss: 0.3891
+Training stopped due to timeout at epoch 10.
+Time spent: 121 min 20 sec of 120 min allowed.
+Training MobileNetV2... (Hyper Params: Learning Rate = 0.001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 0.6518, Val Loss: 0.3994
+Epoch 2/20, Train Loss: 0.4265, Val Loss: 0.3367
+Epoch 3/20, Train Loss: 0.3826, Val Loss: 0.3236
+Epoch 4/20, Train Loss: 0.3617, Val Loss: 0.2896
+Epoch 5/20, Train Loss: 0.3551, Val Loss: 0.2789
+Epoch 6/20, Train Loss: 0.3355, Val Loss: 0.2826
+Epoch 7/20, Train Loss: 0.3314, Val Loss: 0.2744
+Epoch 8/20, Train Loss: 0.3190, Val Loss: 0.2906
+Epoch 9/20, Train Loss: 0.3090, Val Loss: 0.2584
+Epoch 10/20, Train Loss: 0.3317, Val Loss: 0.2667
+Epoch 11/20, Train Loss: 0.3241, Val Loss: 0.2580
+Epoch 12/20, Train Loss: 0.3130, Val Loss: 0.2526
+Epoch 13/20, Train Loss: 0.2997, Val Loss: 0.2608
+Epoch 14/20, Train Loss: 0.2832, Val Loss: 0.2656
+Epoch 15/20, Train Loss: 0.3047, Val Loss: 0.2888
+Epoch 16/20, Train Loss: 0.3075, Val Loss: 0.2405
+Epoch 17/20, Train Loss: 0.2836, Val Loss: 0.2348
+Epoch 18/20, Train Loss: 0.2942, Val Loss: 0.2388
+Epoch 19/20, Train Loss: 0.2816, Val Loss: 0.2320
+Epoch 20/20, Train Loss: 0.2866, Val Loss: 0.2544
+Time spent: 105 min 54 sec of 120 min allowed.
 Evaluating models...
 Evaluating ResNet18 on Test Data...
 Confusion Matrix:
-[[15  0  3  0]
- [ 1 14  7  0]
- [ 2  0 17  0]
- [ 0  8  9  4]]
-Accuracy: 0.6250
-Precision: 0.7372
-Recall: 0.6250
-F1-Score: 0.5933
+[[238  49   2   6]
+ [ 10 252  31  42]
+ [  4  12 363   2]
+ [  3   4   0 386]]
+Accuracy: 0.8825
+Precision: 0.8824
+Recall: 0.8825
+F1-Score: 0.8805
 Evaluating VGG16 on Test Data...
 Confusion Matrix:
-[[18  0  0  0]
- [ 0 21  1  0]
- [ 0  1 18  0]
- [ 0  1  0 20]]
-Accuracy: 0.9625
-Precision: 0.9636
-Recall: 0.9625
-F1-Score: 0.9628
+[[260  28   1   6]
+ [ 44 214  25  52]
+ [  4   4 369   4]
+ [  3   7   2 381]]
+Accuracy: 0.8718
+Precision: 0.8704
+Recall: 0.8718
+F1-Score: 0.8665
 Evaluating InceptionV3 on Test Data...
 Confusion Matrix:
-[[16  1  1  0]
- [ 1 19  2  0]
- [ 0  5 12  2]
- [ 0  1  0 20]]
-Accuracy: 0.8375
-Precision: 0.8414
-Recall: 0.8375
-F1-Score: 0.8353
+[[240  44   4   7]
+ [ 12 237  36  50]
+ [  2   6 371   2]
+ [  1  16   0 376]]
+Accuracy: 0.8718
+Precision: 0.8713
+Recall: 0.8718
+F1-Score: 0.8691
 Evaluating DenseNet on Test Data...
 Confusion Matrix:
-[[18  0  0  0]
- [ 4 14  2  2]
- [ 5  5  9  0]
- [ 4  2  8  7]]
-Accuracy: 0.6000
-Precision: 0.6306
-Recall: 0.6000
-F1-Score: 0.5794
+[[256  37   0   2]
+ [ 16 264  23  32]
+ [  2   6 370   3]
+ [  2  25   0 366]]
+Accuracy: 0.8946
+Precision: 0.8943
+Recall: 0.8946
+F1-Score: 0.8941
 Evaluating MobileNetV2 on Test Data...
 Confusion Matrix:
-[[18  0  0  0]
- [ 7 12  3  0]
- [ 9  0 10  0]
- [12  0  0  9]]
-Accuracy: 0.6125
-Precision: 0.8082
-Recall: 0.6125
-F1-Score: 0.6266
+[[271  23   0   1]
+ [ 11 278  19  27]
+ [  4   9 368   0]
+ [  1  21   0 371]]
+Accuracy: 0.9174
+Precision: 0.9171
+Recall: 0.9174
+F1-Score: 0.9172
