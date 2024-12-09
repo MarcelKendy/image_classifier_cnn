@@ -268,7 +268,7 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
     }
 
 # Function to initialize models
-def get_model(model_name, num_classes, freeze_features=False):
+def initialize_model(model_name, num_classes, freeze_features=False):
     """
     Initializes and customizes a deep learning model for a classification task.
 
@@ -384,7 +384,7 @@ def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, de
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
             # Initialize model, optimizer, and criterion
-            model = get_model(model_name, len(class_names)).to(device)
+            model = initialize_model(model_name, len(class_names)).to(device)
             criterion = nn.CrossEntropyLoss()
             optimizer = optimizer_class(model.parameters(), lr=lr)
 
@@ -505,7 +505,7 @@ def main():
     # Iterate through models_list to initialize the models
     for i, (model, model_name) in enumerate(models_list):
         print(f"Initializing {model_name}...")
-        initialized_model = get_model(model_name, num_classes=len(class_names), freeze_features=True).to(device)
+        initialized_model = initialize_model(model_name, num_classes=len(class_names), freeze_features=True).to(device)
         models_list[i] = (initialized_model, model_name)  # Update the "None" placeholder with the initialized model
 
     # Step 3/4: Training models with selected hyperparameters
