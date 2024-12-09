@@ -269,6 +269,28 @@ def evaluate_model(model, test_loader, device, class_names, model_name):
 
 # Function to initialize models
 def get_model(model_name, num_classes, freeze_features=False):
+    """
+    Initializes and customizes a deep learning model for a classification task.
+
+    Args:
+        model_name: The name of the model to initialize. Options include:
+            - "ResNet18"
+            - "VGG16"
+            - "InceptionV3"
+            - "DenseNet"
+            - "MobileNetV2"
+        num_classes: The number of output classes for the classification task.
+        freeze_features: Whether to freeze the feature extraction layers of the model 
+                         (default: False).
+
+    Returns:
+        A PyTorch model customized for the specified number of classes, with optional 
+        frozen features.
+    """
+    available_models = ["ResNet18", "VGG16", "InceptionV3", "DenseNet", "MobileNetV2"]
+    if (model_name not in available_models):
+        print(f"Model {model_name} not available. Models available: {available_models}")
+        return False
     if model_name == "ResNet18":
         model = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
         model.fc = nn.Linear(model.fc.in_features, num_classes)
@@ -313,7 +335,7 @@ def get_model(model_name, num_classes, freeze_features=False):
     return model
 
 # Function for hyperparameter optimization
-def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names):
+def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names, num_epochs=5, combinations_percentage=0.6, upper_limit_testings=8, learning_rates=[1e-2, 1e-3, 1e-4], batch_sizes=[8, 16, 32], optimizers=[optim.Adam, optim.SGD]):
     """
     Optimizes hyperparameters for each model using random search.
 
@@ -321,19 +343,21 @@ def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, de
         hyperparams_dict: Dictionary of hyperparameters for all models.
         train_dataset: Dataset for training.
         val_dataset: Dataset for validation.
-        device: cpu or cuda (GPU).
+        device: 'cpu' or 'cuda' (GPU).
         class_names: List of class names.
+        num_epochs: Number of epochs to train for each parameter combination (default: 5).
+        combinations_percentage: Percentage of all possible hyperparameter combinations to test (default: 0.6).
+        upper_limit_testings: Maximum number of hyperparameter combinations to test, regardless of the percentage (default: 8).
+        learning_rates: List of possible learning rates to use during optimization (default: [1e-2, 1e-3, 1e-4]).
+        batch_sizes: List of possible batch sizes to use during optimization (default: [8, 16, 32]).
+        optimizers: List of possible optimizer classes to use during optimization (default: [optim.Adam, optim.SGD]).
 
     Updates:
         hyperparams_dict is updated in-place with the optimized hyperparameters.
     """
-    # Possible values for random search
-    learning_rates = [1e-2, 1e-3, 1e-4]
-    batch_sizes = [8, 16, 32]
-    optimizers = [optim.Adam, optim.SGD]    
-    n_testings = int(0.6 * (len(learning_rates) * len(batch_sizes) * len(optimizers))) # 60% of all random combinations possible  
-    upper_limit_testings = 8  # Upper limit to the number of random combinations 
-    max_n_testings = min(n_testings, upper_limit_testings)    
+    # Possible values for random search defined on params          
+    n_testings = int(combinations_percentage * (len(learning_rates) * len(batch_sizes) * len(optimizers)))  # % of all random combinations possible based on param      
+    max_n_testings = min(n_testings, upper_limit_testings) # Upper limit to the number of random combinations
 
     for model_name, params in hyperparams_dict.items():
         print(f"Optimizing hyperparameters for {model_name}...")
@@ -364,35 +388,36 @@ def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, de
             criterion = nn.CrossEntropyLoss()
             optimizer = optimizer_class(model.parameters(), lr=lr)
 
-            # Train for a single epoch
-            model.train()
-            for inputs, labels in train_loader:
-                inputs, labels = inputs.to(device), labels.to(device)
-                model.zero_grad()
-                optimizer.zero_grad()
-
-                outputs = model(inputs)
-                if isinstance(outputs, tuple):  
-                    outputs = outputs.logits
-
-                loss = criterion(outputs, labels)
-                loss.backward()
-                optimizer.step()
-
-            # Validate and calculate validation loss
-            model.eval()
-            val_loss = 0.0
-            with torch.no_grad():
-                for inputs, labels in val_loader:
+            # Train for the specified number of epochs
+            for epoch in range(num_epochs):
+                model.train()
+                for inputs, labels in train_loader:
                     inputs, labels = inputs.to(device), labels.to(device)
-                    outputs = model(inputs)
-                    if isinstance(outputs, tuple):
-                        outputs = outputs.logits
-                    loss = criterion(outputs, labels)
-                    val_loss += loss.item()
+                    model.zero_grad()
+                    optimizer.zero_grad()
 
-            val_loss /= len(val_loader)
-            print(f"Validation Loss: {val_loss:.4f}")
+                    outputs = model(inputs)
+                    if isinstance(outputs, tuple):  
+                        outputs = outputs.logits
+
+                    loss = criterion(outputs, labels)
+                    loss.backward()
+                    optimizer.step()
+
+                # Validate and calculate validation loss
+                model.eval()
+                val_loss = 0.0
+                with torch.no_grad():
+                    for inputs, labels in val_loader:
+                        inputs, labels = inputs.to(device), labels.to(device)
+                        outputs = model(inputs)
+                        if isinstance(outputs, tuple):
+                            outputs = outputs.logits
+                        loss = criterion(outputs, labels)
+                        val_loss += loss.item()
+
+                val_loss /= len(val_loader)
+                print(f"Epoch {epoch + 1}/{num_epochs}, Validation Loss: {val_loss:.4f}")
 
             # Update best parameters if the current loss is lower
             if val_loss < best_val_loss:
@@ -411,9 +436,10 @@ def hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, de
 # Main code
 def main():
     print("Initializing program...")
+
     # Step 1/4: Dataset preparation
     print("Preparing Dataset...")
-    DATASET_PATH = "image_dataset"
+    DATASET_PATH = "fake_dataset"
     IMAGE_SIZE = (299, 299)  # Reshaping resolution
     HOLD_OUT_SPLIT = 0.2  # 20% of the data will be reserved for the final test
 
