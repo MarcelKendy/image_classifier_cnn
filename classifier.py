@@ -494,7 +494,7 @@ def main():
 
     # Hyperparameter optimization
     print("Optimizing hyperparameters...")
-    hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names)
+    hyperparameter_optimization(hyperparams_dict, train_dataset, val_dataset, device, class_names) # If you comment this line, the hyperparams_dict will remain unchanged with the default values.
 
     # Step 2/4: Models initialization
     print("Initializing models...")
