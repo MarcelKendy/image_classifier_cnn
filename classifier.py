@@ -41,7 +41,7 @@ sys.stdout = Logger("results.txt")
 # Functions
 
 # Training function
-def train_model(model, train_loader, val_loader, criterion, optimizer, device, model_name, epochs=20, patience=5, timeout=120*60):
+def train_model(model, train_loader, val_loader, criterion, optimizer, device, model_name, epochs=20, patience=5, timeout=1200*60):
     """
     Trains the model with early stopping, validation loss tracking, and optional timeout.
 
@@ -439,7 +439,7 @@ def main():
 
     # Step 1/4: Dataset preparation
     print("Preparing Dataset...")
-    DATASET_PATH = "fake_dataset"
+    DATASET_PATH = "image_dataset"
     IMAGE_SIZE = (299, 299)  # Reshaping resolution
     HOLD_OUT_SPLIT = 0.2  # 20% of the data will be reserved for the final test
 
