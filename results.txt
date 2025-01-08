@@ -2,155 +2,420 @@ Initializing program...
 Preparing Dataset...
 Optimizing hyperparameters...
 Optimizing hyperparameters for ResNet18...
-Testing combination (1/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.9321
-Epoch 2/5, Validation Loss: 22.3225
-Epoch 3/5, Validation Loss: 0.7424
-Epoch 4/5, Validation Loss: 0.7214
-Epoch 5/5, Validation Loss: 0.5128
-Testing combination (2/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.3896
-Epoch 2/5, Validation Loss: 0.2690
-Epoch 3/5, Validation Loss: 0.2368
-Epoch 4/5, Validation Loss: 0.1806
-Epoch 5/5, Validation Loss: 0.1534
-Testing combination (3/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.0973
-Epoch 2/5, Validation Loss: 0.0953
-Epoch 3/5, Validation Loss: 0.0581
-Epoch 4/5, Validation Loss: 0.0361
-Epoch 5/5, Validation Loss: 0.0791
-Testing combination (4/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = SGD
-Epoch 1/5, Validation Loss: 1.0640
-Epoch 2/5, Validation Loss: 0.8881
-Epoch 3/5, Validation Loss: 0.7262
-Epoch 4/5, Validation Loss: 0.6271
-Epoch 5/5, Validation Loss: 0.5727
-Testing combination (5/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = Adam
-Epoch 1/5, Validation Loss: 1.3142
-Epoch 2/5, Validation Loss: 14.9511
-Epoch 3/5, Validation Loss: 0.6571
-Epoch 4/5, Validation Loss: 2.1204
-Epoch 5/5, Validation Loss: 2.1969
-Testing combination (6/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = SGD
-Epoch 1/5, Validation Loss: 1.2779
-Epoch 2/5, Validation Loss: 1.1715
-Epoch 3/5, Validation Loss: 1.0925
-Epoch 4/5, Validation Loss: 1.0165
-Epoch 5/5, Validation Loss: 0.9624
-Testing combination (7/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.4607
-Epoch 2/5, Validation Loss: 0.1694
-Epoch 3/5, Validation Loss: 0.2390
-Epoch 4/5, Validation Loss: 0.3163
-Epoch 5/5, Validation Loss: 0.2597
-Testing combination (8/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.6672
-Epoch 2/5, Validation Loss: 0.2017
-Epoch 3/5, Validation Loss: 0.1698
-Epoch 4/5, Validation Loss: 0.3136
-Epoch 5/5, Validation Loss: 0.3479
-Best params for ResNet18 (Val Loss = 0.07905793184566065): {'learning_rate': 0.0001, 'batch_size': 16, 'optimizer': <class 'torch.optim.adam.Adam'>}
-Optimizing hyperparameters for VGG16...
-Testing combination (1/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.2667
-Epoch 2/5, Validation Loss: 0.1058
-Epoch 3/5, Validation Loss: 0.1511
-Epoch 4/5, Validation Loss: 0.1186
-Epoch 5/5, Validation Loss: 0.0784
-Testing combination (2/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.4760
-Epoch 2/5, Validation Loss: 0.3216
-Epoch 3/5, Validation Loss: 0.2664
-Epoch 4/5, Validation Loss: 0.2399
-Epoch 5/5, Validation Loss: 0.2181
-Testing combination (3/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.3354
-Epoch 2/5, Validation Loss: 0.2393
-Epoch 3/5, Validation Loss: 0.2606
-Epoch 4/5, Validation Loss: 0.1724
-Epoch 5/5, Validation Loss: 0.1879
-Testing combination (4/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = Adam
-Epoch 1/5, Validation Loss: 1.6726
-Epoch 2/5, Validation Loss: 1.0811
-Epoch 3/5, Validation Loss: 0.7753
-Epoch 4/5, Validation Loss: 0.8082
-Epoch 5/5, Validation Loss: 0.7568
-Testing combination (5/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.2589
-Epoch 2/5, Validation Loss: 0.1464
-Epoch 3/5, Validation Loss: 0.1249
-Epoch 4/5, Validation Loss: 0.1297
-Epoch 5/5, Validation Loss: 0.1078
-Testing combination (6/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.1485
-Epoch 2/5, Validation Loss: 0.1241
-Epoch 3/5, Validation Loss: 0.1004
-Epoch 4/5, Validation Loss: 0.1281
-Epoch 5/5, Validation Loss: 0.0946
-Testing combination (7/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.2751
-Epoch 2/5, Validation Loss: 0.1995
-Epoch 3/5, Validation Loss: 0.1690
-Epoch 4/5, Validation Loss: 0.1498
-Epoch 5/5, Validation Loss: 0.1325
-Testing combination (8/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.8688
-Epoch 2/5, Validation Loss: 0.5572
-Epoch 3/5, Validation Loss: 0.4232
-Epoch 4/5, Validation Loss: 0.3586
-Epoch 5/5, Validation Loss: 0.3248
-Best params for VGG16 (Val Loss = 0.07840961864474354): {'learning_rate': 0.0001, 'batch_size': 16, 'optimizer': <class 'torch.optim.adam.Adam'>}
-Optimizing hyperparameters for InceptionV3...
-Testing combination (1/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.8455
-Epoch 2/5, Validation Loss: 0.7362
-Epoch 3/5, Validation Loss: 0.3789
-Epoch 4/5, Validation Loss: 0.2886
-Epoch 5/5, Validation Loss: 0.2420
-Testing combination (2/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.9048
-Epoch 2/5, Validation Loss: 0.2599
-Epoch 3/5, Validation Loss: 0.2980
-Epoch 4/5, Validation Loss: 0.1777
-Epoch 5/5, Validation Loss: 0.2479
-Testing combination (3/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.0891
-Epoch 2/5, Validation Loss: 0.0902
-Epoch 3/5, Validation Loss: 0.0423
-Epoch 4/5, Validation Loss: 0.0495
-Epoch 5/5, Validation Loss: 0.0422
+Testing combination (1/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.3905
+Epoch 2/5, Validation Loss: 0.2933
+Epoch 3/5, Validation Loss: 0.2149
+Epoch 4/5, Validation Loss: 0.1842
+Epoch 5/5, Validation Loss: 0.1573
+Testing combination (2/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 1.3096
+Epoch 2/5, Validation Loss: 1.1875
+Epoch 3/5, Validation Loss: 1.0949
+Epoch 4/5, Validation Loss: 1.0111
+Epoch 5/5, Validation Loss: 0.9576
+Testing combination (3/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 3.4109
+Epoch 2/5, Validation Loss: 1.1207
+Epoch 3/5, Validation Loss: 0.7694
+Epoch 4/5, Validation Loss: 2.3849
+Epoch 5/5, Validation Loss: 0.4633
 Testing combination (4/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.1240
-Epoch 2/5, Validation Loss: 0.0774
-Epoch 3/5, Validation Loss: 0.0535
-Epoch 4/5, Validation Loss: 0.0484
-Epoch 5/5, Validation Loss: 0.0387
-Testing combination (5/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = SGD
-Epoch 1/5, Validation Loss: 1.1143
-Epoch 2/5, Validation Loss: 0.8377
-Epoch 3/5, Validation Loss: 0.6561
-Epoch 4/5, Validation Loss: 0.5257
-Epoch 5/5, Validation Loss: 0.4088
-Testing combination (6/8): Learning Rate = 0.01, Batch Size = 8, Optimizer = Adam
-Epoch 1/5, Validation Loss: 1.2402
-Epoch 2/5, Validation Loss: 1.9505
-Epoch 3/5, Validation Loss: 1.5038
-Epoch 4/5, Validation Loss: 1.0932
-Epoch 5/5, Validation Loss: 0.8692
+Epoch 1/5, Validation Loss: 0.1986
+Epoch 2/5, Validation Loss: 0.1177
+Epoch 3/5, Validation Loss: 0.0593
+Epoch 4/5, Validation Loss: 0.0740
+Epoch 5/5, Validation Loss: 0.0587
+Testing combination (5/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.3361
+Epoch 2/5, Validation Loss: 0.2375
+Epoch 3/5, Validation Loss: 0.1124
+Epoch 4/5, Validation Loss: 0.3644
+Epoch 5/5, Validation Loss: 0.1628
+Testing combination (6/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.3044
+Epoch 2/5, Validation Loss: 0.4008
+Epoch 3/5, Validation Loss: 0.5847
+Epoch 4/5, Validation Loss: 0.1094
+Epoch 5/5, Validation Loss: 0.3864
+Testing combination (7/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.2793
+Epoch 2/5, Validation Loss: 0.1771
+Epoch 3/5, Validation Loss: 0.1084
+Epoch 4/5, Validation Loss: 0.1068
+Epoch 5/5, Validation Loss: 0.0846
+Testing combination (8/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.1833
+Epoch 2/5, Validation Loss: 0.1366
+Epoch 3/5, Validation Loss: 0.0639
+Epoch 4/5, Validation Loss: 0.1375
+Epoch 5/5, Validation Loss: 0.0451
+Best params for ResNet18 (Val Loss = 0.04512367004150841): {'learning_rate': 0.0001, 'batch_size': 16, 'optimizer': <class 'torch.optim.adam.Adam'>}
+Optimizing hyperparameters for VGG16...
+Testing combination (1/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.3576
+Epoch 2/5, Validation Loss: 0.1862
+Epoch 3/5, Validation Loss: 0.1269
+Epoch 4/5, Validation Loss: 0.0892
+Epoch 5/5, Validation Loss: 0.0956
+Testing combination (2/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.2055
+Epoch 2/5, Validation Loss: 0.2267
+Epoch 3/5, Validation Loss: 0.1520
+Epoch 4/5, Validation Loss: 0.0767
+Epoch 5/5, Validation Loss: 0.1039
+Testing combination (3/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 1.0811
+Epoch 2/5, Validation Loss: 0.8303
+Epoch 3/5, Validation Loss: 0.6319
+Epoch 4/5, Validation Loss: 0.4975
+Epoch 5/5, Validation Loss: 0.4233
+Testing combination (4/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.2377
+Epoch 2/5, Validation Loss: 0.1229
+Epoch 3/5, Validation Loss: 0.0751
+Epoch 4/5, Validation Loss: 0.1705
+Epoch 5/5, Validation Loss: 0.1493
+Testing combination (5/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.8797
+Epoch 2/5, Validation Loss: 0.5261
+Epoch 3/5, Validation Loss: 0.3862
+Epoch 4/5, Validation Loss: 0.3315
+Epoch 5/5, Validation Loss: 0.3051
+Testing combination (6/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.3273
+Epoch 2/5, Validation Loss: 0.3062
+Epoch 3/5, Validation Loss: 0.2368
+Epoch 4/5, Validation Loss: 0.2103
+Epoch 5/5, Validation Loss: 0.2224
 Testing combination (7/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
-Epoch 1/5, Validation Loss: 0.5401
-Epoch 2/5, Validation Loss: 0.3112
-Epoch 3/5, Validation Loss: 0.2110
-Epoch 4/5, Validation Loss: 0.1633
-Epoch 5/5, Validation Loss: 0.1348
-Testing combination (8/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = Adam
-Epoch 1/5, Validation Loss: 0.1253
-Epoch 2/5, Validation Loss: 0.0838
-Epoch 3/5, Validation Loss: 0.0641
-Epoch 4/5, Validation Loss: 0.0870
-Epoch 5/5, Validation Loss: 0.0516
-Best params for InceptionV3 (Val Loss = 0.03872754131740328): {'learning_rate': 0.01, 'batch_size': 16, 'optimizer': <class 'torch.optim.sgd.SGD'>}
+Epoch 1/5, Validation Loss: 0.2975
+Epoch 2/5, Validation Loss: 0.3125
+Epoch 3/5, Validation Loss: 0.2080
+Epoch 4/5, Validation Loss: 0.1485
+Epoch 5/5, Validation Loss: 0.1908
+Testing combination (8/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = Adam
+Epoch 1/5, Validation Loss: 1.3882
+Epoch 2/5, Validation Loss: 1.3861
+Epoch 3/5, Validation Loss: 1.3830
+Epoch 4/5, Validation Loss: 1.3850
+Epoch 5/5, Validation Loss: 1.3828
+Best params for VGG16 (Val Loss = 0.09561166173848763): {'learning_rate': 0.01, 'batch_size': 32, 'optimizer': <class 'torch.optim.sgd.SGD'>}
+Optimizing hyperparameters for InceptionV3...
+Testing combination (1/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.5616
+Epoch 2/5, Validation Loss: 0.4374
+Epoch 3/5, Validation Loss: 0.2567
+Epoch 4/5, Validation Loss: 0.1907
+Epoch 5/5, Validation Loss: 0.1520
+Testing combination (2/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.2534
+Epoch 2/5, Validation Loss: 0.3290
+Epoch 3/5, Validation Loss: 0.2236
+Epoch 4/5, Validation Loss: 0.1786
+Epoch 5/5, Validation Loss: 0.1549
+Testing combination (3/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.0731
+Epoch 2/5, Validation Loss: 0.0471
+Epoch 3/5, Validation Loss: 0.0700
+Epoch 4/5, Validation Loss: 0.0398
+Epoch 5/5, Validation Loss: 0.0447
+Testing combination (4/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.1721
+Epoch 2/5, Validation Loss: 0.0640
+Epoch 3/5, Validation Loss: 0.0532
+Epoch 4/5, Validation Loss: 0.0704
+Epoch 5/5, Validation Loss: 0.0814
+Testing combination (5/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.1479
+Epoch 2/5, Validation Loss: 0.0621
+Epoch 3/5, Validation Loss: 0.0433
+Epoch 4/5, Validation Loss: 0.0508
+Epoch 5/5, Validation Loss: 0.0536
+Testing combination (6/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 1.3237
+Epoch 2/5, Validation Loss: 1.2975
+Epoch 3/5, Validation Loss: 1.2642
+Epoch 4/5, Validation Loss: 1.2478
+Epoch 5/5, Validation Loss: 1.1884
+Testing combination (7/8): Learning Rate = 0.01, Batch Size = 8, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.2524
+Epoch 2/5, Validation Loss: 0.0637
+Epoch 3/5, Validation Loss: 0.0536
+Epoch 4/5, Validation Loss: 0.0467
+Epoch 5/5, Validation Loss: 0.0298
+Testing combination (8/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.1489
+Epoch 2/5, Validation Loss: 0.1006
+Epoch 3/5, Validation Loss: 0.0583
+Epoch 4/5, Validation Loss: 0.0510
+Epoch 5/5, Validation Loss: 0.0362
+Best params for InceptionV3 (Val Loss = 0.029834300365239125): {'learning_rate': 0.01, 'batch_size': 8, 'optimizer': <class 'torch.optim.sgd.SGD'>}
 Optimizing hyperparameters for DenseNet...
-Testing combination (1/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = SGD
-Epoch 1/5, Validation Loss: 1.1534
+Testing combination (1/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.4285
+Epoch 2/5, Validation Loss: 1.5231
+Epoch 3/5, Validation Loss: 0.2579
+Epoch 4/5, Validation Loss: 0.1267
+Epoch 5/5, Validation Loss: 0.1566
+Testing combination (2/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.6594
+Epoch 2/5, Validation Loss: 0.4202
+Epoch 3/5, Validation Loss: 0.1973
+Epoch 4/5, Validation Loss: 0.1653
+Epoch 5/5, Validation Loss: 0.1633
+Testing combination (3/8): Learning Rate = 0.001, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.5044
+Epoch 2/5, Validation Loss: 0.3501
+Epoch 3/5, Validation Loss: 0.2741
+Epoch 4/5, Validation Loss: 0.2324
+Epoch 5/5, Validation Loss: 0.2117
+Testing combination (4/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = Adam
+Epoch 1/5, Validation Loss: 47.1723
+Epoch 2/5, Validation Loss: 0.7091
+Epoch 3/5, Validation Loss: 0.6470
+Epoch 4/5, Validation Loss: 0.5211
+Epoch 5/5, Validation Loss: 5.8571
+Testing combination (5/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.2189
+Epoch 2/5, Validation Loss: 0.1750
+Epoch 3/5, Validation Loss: 0.0949
+Epoch 4/5, Validation Loss: 0.1041
+Epoch 5/5, Validation Loss: 0.0923
+Testing combination (6/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 1.0090
+Epoch 2/5, Validation Loss: 1.3750
+Epoch 3/5, Validation Loss: 0.6858
+Epoch 4/5, Validation Loss: 0.9077
+Epoch 5/5, Validation Loss: 0.7733
+Testing combination (7/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.1599
+Epoch 2/5, Validation Loss: 0.0723
+Epoch 3/5, Validation Loss: 0.0690
+Epoch 4/5, Validation Loss: 0.0777
+Epoch 5/5, Validation Loss: 0.0475
+Testing combination (8/8): Learning Rate = 0.0001, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 1.2231
+Epoch 2/5, Validation Loss: 1.0695
+Epoch 3/5, Validation Loss: 0.9590
+Epoch 4/5, Validation Loss: 0.8580
+Epoch 5/5, Validation Loss: 0.7705
+Best params for DenseNet (Val Loss = 0.04753088106385889): {'learning_rate': 0.0001, 'batch_size': 16, 'optimizer': <class 'torch.optim.adam.Adam'>}
+Optimizing hyperparameters for MobileNetV2...
+Testing combination (1/8): Learning Rate = 0.0001, Batch Size = 8, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.1001
+Epoch 2/5, Validation Loss: 0.0767
+Epoch 3/5, Validation Loss: 0.0534
+Epoch 4/5, Validation Loss: 0.0715
+Epoch 5/5, Validation Loss: 0.0514
+Testing combination (2/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.5923
+Epoch 2/5, Validation Loss: 0.2754
+Epoch 3/5, Validation Loss: 0.3751
+Epoch 4/5, Validation Loss: 0.5408
+Epoch 5/5, Validation Loss: 0.1420
+Testing combination (3/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 1.3252
+Epoch 2/5, Validation Loss: 1.2248
+Epoch 3/5, Validation Loss: 1.1429
+Epoch 4/5, Validation Loss: 1.0663
+Epoch 5/5, Validation Loss: 0.9977
+Testing combination (4/8): Learning Rate = 0.001, Batch Size = 8, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.3353
+Epoch 2/5, Validation Loss: 0.2375
+Epoch 3/5, Validation Loss: 0.1948
+Epoch 4/5, Validation Loss: 0.1520
+Epoch 5/5, Validation Loss: 0.1342
+Testing combination (5/8): Learning Rate = 0.0001, Batch Size = 32, Optimizer = Adam
+Epoch 1/5, Validation Loss: 0.1428
+Epoch 2/5, Validation Loss: 0.0859
+Epoch 3/5, Validation Loss: 0.0667
+Epoch 4/5, Validation Loss: 0.0555
+Epoch 5/5, Validation Loss: 0.0655
+Testing combination (6/8): Learning Rate = 0.001, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.7483
+Epoch 2/5, Validation Loss: 0.4942
+Epoch 3/5, Validation Loss: 0.3854
+Epoch 4/5, Validation Loss: 0.3245
+Epoch 5/5, Validation Loss: 0.2791
+Testing combination (7/8): Learning Rate = 0.01, Batch Size = 16, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.1614
+Epoch 2/5, Validation Loss: 0.4266
+Epoch 3/5, Validation Loss: 0.1011
+Epoch 4/5, Validation Loss: 0.1459
+Epoch 5/5, Validation Loss: 0.0709
+Testing combination (8/8): Learning Rate = 0.01, Batch Size = 32, Optimizer = SGD
+Epoch 1/5, Validation Loss: 0.1841
+Epoch 2/5, Validation Loss: 0.1973
+Epoch 3/5, Validation Loss: 0.0923
+Epoch 4/5, Validation Loss: 0.0784
+Epoch 5/5, Validation Loss: 0.1843
+Best params for MobileNetV2 (Val Loss = 0.051381258618404375): {'learning_rate': 0.0001, 'batch_size': 8, 'optimizer': <class 'torch.optim.adam.Adam'>}
+Initializing models...
+Initializing ResNet18...
+Initializing VGG16...
+Initializing InceptionV3...
+Initializing DenseNet...
+Initializing MobileNetV2...
+Training models...
+Training ResNet18... (Hyper Params: Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 1.1777, Val Loss: 0.9943
+Epoch 2/20, Train Loss: 0.9321, Val Loss: 0.7990
+Epoch 3/20, Train Loss: 0.7968, Val Loss: 0.6886
+Epoch 4/20, Train Loss: 0.7159, Val Loss: 0.6176
+Epoch 5/20, Train Loss: 0.6435, Val Loss: 0.5684
+Epoch 6/20, Train Loss: 0.6082, Val Loss: 0.5315
+Epoch 7/20, Train Loss: 0.5727, Val Loss: 0.4976
+Epoch 8/20, Train Loss: 0.5514, Val Loss: 0.4680
+Epoch 9/20, Train Loss: 0.5109, Val Loss: 0.4471
+Epoch 10/20, Train Loss: 0.5082, Val Loss: 0.4380
+Epoch 11/20, Train Loss: 0.4876, Val Loss: 0.4300
+Epoch 12/20, Train Loss: 0.4661, Val Loss: 0.4072
+Epoch 13/20, Train Loss: 0.4591, Val Loss: 0.3930
+Epoch 14/20, Train Loss: 0.4478, Val Loss: 0.3874
+Epoch 15/20, Train Loss: 0.4430, Val Loss: 0.3740
+Epoch 16/20, Train Loss: 0.4357, Val Loss: 0.3745
+Epoch 17/20, Train Loss: 0.4253, Val Loss: 0.3667
+Epoch 18/20, Train Loss: 0.4177, Val Loss: 0.3652
+Epoch 19/20, Train Loss: 0.4070, Val Loss: 0.3622
+Epoch 20/20, Train Loss: 0.4026, Val Loss: 0.3508
+Time spent: 171 min 39 sec of 1200 min allowed.
+Training VGG16... (Hyper Params: Learning Rate = 0.01, Batch Size = 32, Optimizer = SGD)
+Epoch 1/20, Train Loss: 0.7059, Val Loss: 0.4944
+Epoch 2/20, Train Loss: 0.5230, Val Loss: 0.4442
+Epoch 3/20, Train Loss: 0.4805, Val Loss: 0.3997
+Epoch 4/20, Train Loss: 0.4554, Val Loss: 0.3853
+Epoch 5/20, Train Loss: 0.4354, Val Loss: 0.3858
+Epoch 6/20, Train Loss: 0.4278, Val Loss: 0.3866
+Epoch 7/20, Train Loss: 0.4275, Val Loss: 0.3726
+Epoch 8/20, Train Loss: 0.4382, Val Loss: 0.3478
+Epoch 9/20, Train Loss: 0.4289, Val Loss: 0.3568
+Epoch 10/20, Train Loss: 0.4017, Val Loss: 0.3470
+Epoch 11/20, Train Loss: 0.4047, Val Loss: 0.3273
+Epoch 12/20, Train Loss: 0.3984, Val Loss: 0.3489
+Epoch 13/20, Train Loss: 0.3989, Val Loss: 0.3302
+Epoch 14/20, Train Loss: 0.3876, Val Loss: 0.3112
+Epoch 15/20, Train Loss: 0.3801, Val Loss: 0.3099
+Epoch 16/20, Train Loss: 0.3784, Val Loss: 0.3110
+Epoch 17/20, Train Loss: 0.3734, Val Loss: 0.3205
+Epoch 18/20, Train Loss: 0.3665, Val Loss: 0.3081
+Epoch 19/20, Train Loss: 0.3743, Val Loss: 0.3071
+Epoch 20/20, Train Loss: 0.3657, Val Loss: 0.3019
+Time spent: 988 min 3 sec of 1200 min allowed.
+Training InceptionV3... (Hyper Params: Learning Rate = 0.01, Batch Size = 8, Optimizer = SGD)
+Epoch 1/20, Train Loss: 0.8545, Val Loss: 0.5251
+Epoch 2/20, Train Loss: 0.6425, Val Loss: 0.4653
+Epoch 3/20, Train Loss: 0.5928, Val Loss: 0.4476
+Epoch 4/20, Train Loss: 0.5739, Val Loss: 0.3513
+Epoch 5/20, Train Loss: 0.5497, Val Loss: 0.3498
+Epoch 6/20, Train Loss: 0.5288, Val Loss: 0.3239
+Epoch 7/20, Train Loss: 0.5191, Val Loss: 0.3179
+Epoch 8/20, Train Loss: 0.5458, Val Loss: 0.3148
+Epoch 9/20, Train Loss: 0.5190, Val Loss: 0.3208
+Epoch 10/20, Train Loss: 0.4909, Val Loss: 0.3189
+Epoch 11/20, Train Loss: 0.5111, Val Loss: 0.2925
+Epoch 12/20, Train Loss: 0.5187, Val Loss: 0.3512
+Epoch 13/20, Train Loss: 0.5102, Val Loss: 0.2911
+Epoch 14/20, Train Loss: 0.5101, Val Loss: 0.3228
+Epoch 15/20, Train Loss: 0.5205, Val Loss: 0.3113
+Epoch 16/20, Train Loss: 0.5291, Val Loss: 0.2891
+Epoch 17/20, Train Loss: 0.5242, Val Loss: 0.3033
+Epoch 18/20, Train Loss: 0.5255, Val Loss: 0.3626
+Epoch 19/20, Train Loss: 0.5141, Val Loss: 0.3115
+Epoch 20/20, Train Loss: 0.5318, Val Loss: 0.2915
+Time spent: 335 min 41 sec of 1200 min allowed.
+Training DenseNet... (Hyper Params: Learning Rate = 0.0001, Batch Size = 16, Optimizer = Adam)
+Epoch 1/20, Train Loss: 1.1865, Val Loss: 0.9660
+Epoch 2/20, Train Loss: 0.8909, Val Loss: 0.7465
+Epoch 3/20, Train Loss: 0.7325, Val Loss: 0.6248
+Epoch 4/20, Train Loss: 0.6458, Val Loss: 0.5692
+Epoch 5/20, Train Loss: 0.5795, Val Loss: 0.5008
+Epoch 6/20, Train Loss: 0.5379, Val Loss: 0.4673
+Epoch 7/20, Train Loss: 0.4986, Val Loss: 0.4332
+Epoch 8/20, Train Loss: 0.4789, Val Loss: 0.4132
+Epoch 9/20, Train Loss: 0.4528, Val Loss: 0.3947
+Epoch 10/20, Train Loss: 0.4415, Val Loss: 0.3794
+Epoch 11/20, Train Loss: 0.4234, Val Loss: 0.3647
+Epoch 12/20, Train Loss: 0.4084, Val Loss: 0.3568
+Epoch 13/20, Train Loss: 0.3988, Val Loss: 0.3477
+Epoch 14/20, Train Loss: 0.3863, Val Loss: 0.3469
+Epoch 15/20, Train Loss: 0.3809, Val Loss: 0.3274
+Epoch 16/20, Train Loss: 0.3796, Val Loss: 0.3264
+Epoch 17/20, Train Loss: 0.3670, Val Loss: 0.3151
+Epoch 18/20, Train Loss: 0.3475, Val Loss: 0.3127
+Epoch 19/20, Train Loss: 0.3536, Val Loss: 0.3079
+Epoch 20/20, Train Loss: 0.3518, Val Loss: 0.3015
+Time spent: 365 min 47 sec of 1200 min allowed.
+Training MobileNetV2... (Hyper Params: Learning Rate = 0.0001, Batch Size = 8, Optimizer = Adam)
+Epoch 1/20, Train Loss: 1.0793, Val Loss: 0.7370
+Epoch 2/20, Train Loss: 0.7562, Val Loss: 0.5622
+Epoch 3/20, Train Loss: 0.6547, Val Loss: 0.4764
+Epoch 4/20, Train Loss: 0.5921, Val Loss: 0.4271
+Epoch 5/20, Train Loss: 0.5547, Val Loss: 0.4235
+Epoch 6/20, Train Loss: 0.5318, Val Loss: 0.3840
+Epoch 7/20, Train Loss: 0.4992, Val Loss: 0.3637
+Epoch 8/20, Train Loss: 0.5126, Val Loss: 0.3545
+Epoch 9/20, Train Loss: 0.4790, Val Loss: 0.3431
+Epoch 10/20, Train Loss: 0.4682, Val Loss: 0.3309
+Epoch 11/20, Train Loss: 0.4527, Val Loss: 0.3227
+Epoch 12/20, Train Loss: 0.4552, Val Loss: 0.3155
+Epoch 13/20, Train Loss: 0.4481, Val Loss: 0.3297
+Epoch 14/20, Train Loss: 0.4403, Val Loss: 0.3208
+Epoch 15/20, Train Loss: 0.4260, Val Loss: 0.2995
+Epoch 16/20, Train Loss: 0.4203, Val Loss: 0.3058
+Epoch 17/20, Train Loss: 0.4233, Val Loss: 0.3089
+Epoch 18/20, Train Loss: 0.4270, Val Loss: 0.2966
+Epoch 19/20, Train Loss: 0.4250, Val Loss: 0.2874
+Epoch 20/20, Train Loss: 0.4152, Val Loss: 0.2821
+Time spent: 100 min 13 sec of 1200 min allowed.
+Evaluating models...
+Evaluating ResNet18 on Test Data...
+Confusion Matrix:
+[[261  27   2   8]
+ [ 26 226  23  39]
+ [  6  15 386  13]
+ [  4   8   0 360]]
+Accuracy: 0.8782
+Precision: 0.8777
+Recall: 0.8782
+F1-Score: 0.8763
+Evaluating VGG16 on Test Data...
+Confusion Matrix:
+[[249  45   0   4]
+ [ 21 259   8  26]
+ [  2  19 391   8]
+ [  6  14   2 350]]
+Accuracy: 0.8896
+Precision: 0.8927
+Recall: 0.8896
+F1-Score: 0.8904
+Evaluating InceptionV3 on Test Data...
+Confusion Matrix:
+[[252  42   1   3]
+ [ 15 258  13  28]
+ [  1  15 400   4]
+ [  2  14   1 355]]
+Accuracy: 0.9010
+Precision: 0.9030
+Recall: 0.9010
+F1-Score: 0.9013
+Evaluating DenseNet on Test Data...
+Confusion Matrix:
+[[260  35   1   2]
+ [ 20 240  22  32]
+ [  0   9 403   8]
+ [  3  14   1 354]]
+Accuracy: 0.8953
+Precision: 0.8943
+Recall: 0.8953
+F1-Score: 0.8943
+Evaluating MobileNetV2 on Test Data...
+Confusion Matrix:
+[[268  27   0   3]
+ [ 15 249  17  33]
+ [  5  13 396   6]
+ [  5  19   1 347]]
+Accuracy: 0.8974
+Precision: 0.8974
+Recall: 0.8974
+F1-Score: 0.8973
