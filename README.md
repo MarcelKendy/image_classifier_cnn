@@ -1,5 +1,7 @@
 # Projeto de Classificação de Imagens com CNNs
 
+[Vídeo de apresentação do projeto no Youtube](https://www.youtube.com/watch?v=jRVEr3B1KqA)
+
 Este projeto utiliza modelos CNN (Convolutional Neural Network) de redes neurais para classificar imagens em diferentes categorias. Ele foi desenvolvido em Python, utilizando frameworks como torch, scikit-learn, matplotlib.
 
 Seu objetivo é a implementação de um sistema de treinamento de modelos de redes neurais utilizando PyTorch, com foco na classificação de imagens, para criar uma aplicação flexível e eficiente para treinar diferentes modelos de aprendizado profundo em conjuntos de dados de imagens encontrados com ajuda do kaggle.com, utilizando recursos como parada antecipada (early stopping), controle de tempo máximo de treinamento, data augmentation e otimização de hiperparâmetros. 
